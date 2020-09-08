@@ -1,0 +1,98 @@
+.root{
+    -fx-first:#444444;
+    -fx-second:#5f5f5f;
+    -fx-third:#008bff;
+    -fx-third-sup: #005fbd;
+    -fx-third-selected:#47abff;
+    -fx-fourth:#ff4444;
+    -fx-fifth:lightyellow;
+    -fx-sixth:#339900;
+    -fx-yellow: #f8ff65;
+
+}
+
+
+/*for the dental chart
+*/
+Circle.circle-nerve1, Circle.circle-nerve2, Circle.circle-nerve3{
+    -fx-fill:firebrick;
+    -fx-scale-x:0.5;
+    -fx-scale-y:0.5;
+    -fx-stroke: crimson;
+
+}
+
+Circle.circle-nerve1:hover,Circle.circle-nerve2:hover,Circle.circle-nerve3:hover{
+    /*
+-fx-effect: dropshadow(blurType, color, radius, spread, offsetX, offsetY)
+    you could use rgb(,,) or popularColorString 
+    */
+    -fx-effect: dropshadow(gaussian, -fx-second, 10, 0.75, 0.0, 0.0);
+}
+.circle-nerve-clicked{
+    -fx-fill:white;
+    -fx-scale-x:1;
+    -fx-scale-y:1;
+    -fx-stroke:crimson;
+    -fx-stroke-width:2;
+}
+.circle-nerve-unclicked{
+    -fx-fill:firebrick;
+    -fx-scale-x:0.5;
+    -fx-scale-y:0.5;
+    -fx-stroke:crimson;
+}
+
+Line.line-nerve{
+    -fx-stroke:red;
+}
+
+GridPane .container-up-pic{
+    -fx-background-image:url("../images/dental_chart/background-up.png");  
+    /*-fx-background-color:#ff4444;*/
+
+}
+GridPane .container-down-pic{
+    -fx-background-image:url("../images/dental_chart/background-down.png");  
+}
+
+.fork1 , .fork2 , .fork3{
+    -fx-background-color: #cccccc;    
+}
+
+WeatherIconView{
+    -fx-fill:black;    
+}
+.fork-icon1{
+
+}
+.fork-icon2{
+-fx-translate-x:-15;
+-fx-translate-y:-6;
+}
+.fork-icon3{
+-fx-translate-x:5;
+-fx-translate-y:5;
+}
+.card{
+    -fx-border-color:-fx-second;
+    -fx-border-width:1;
+}
+#superior JFXButton:hover , #inferior JFXButton:hover{
+    -fx-effect: dropshadow(gaussian, -fx-second, 3, 0.75, 0.0, 0.0);
+}
+
+/*.bleeding1:disabled Group SVGPath , .bleeding2:disabled Group SVGPath , .bleeding3:disabled Group SVGPath , 
+.plaque1:disabled Group SVGPath , .plaque2:disabled Group SVGPath , .plaque3:disabled Group SVGPath ,
+.bleeding4:disabled Group SVGPath , .bleeding5:disabled Group SVGPath , .bleeding6:disabled Group SVGPath ,
+.plaque4:disabled Group SVGPath , .plaque5:disabled Group SVGPath , .plaque6:disabled Group SVGPath{
+    -fx-fill:white;
+}*/
+
+/*.button .svg {
+    -fx-fill: -fill;
+}
+
+.button:hover .svg {
+    -fx-fill: -hover-fill;
+}*/

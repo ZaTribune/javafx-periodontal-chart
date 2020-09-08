@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.ToggleSwitch?>
+
+
+  <VBox fx:id="vbox_superior" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="950.0" prefWidth="390.0" stylesheets="@../../css/theme1.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shadow.dental_chart.DentalChartController">
+      <children>
+          <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="40.0" style="-fx-background-color: -fx-first;" text="Superior" textFill="WHITE">
+              <padding>
+                  <Insets left="10.0" />
+              </padding>
+          </Label>
+      <HBox fx:id="superior">
+         <children>
+            <VBox maxHeight="-Infinity" minHeight="-Infinity">
+               <children>
+                        <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="36.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Available" textFill="WHITE">
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                        </Label>
+                        <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="36.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Implant" textFill="WHITE">
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                        </Label>
+                        <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="36.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Mobility" textFill="WHITE">
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                        </Label>
+                        <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="36.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Individual Forecast" textFill="WHITE">
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                        </Label>
+                        <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="36.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Fork" textFill="WHITE">
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                        </Label>
+                        <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="36.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Bleeding/Oozing" textFill="WHITE">
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                        </Label>
+                        <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="36.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Plaque" textFill="WHITE">
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                        </Label>
+                        <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="36.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Gum Width" textFill="WHITE">
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                        </Label>
+                        <Label maxHeight="36.0" minHeight="36.0" prefHeight="36.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Gingival Margin" textFill="WHITE">
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                        </Label>
+                        <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="36.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Probing Depth" textFill="WHITE">
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                        </Label>
+                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="336.0" prefWidth="100.0" />
+                        <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="36.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Probing Depth" textFill="WHITE">
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                        </Label>
+                        <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="36.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Gingival Margin" textFill="WHITE">
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                        </Label>
+                        <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="36.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Plaque" textFill="WHITE">
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                        </Label>
+                        <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="36.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Bleeding/Oozing" textFill="WHITE">
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                        </Label>
+                        <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="36.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Fork" textFill="WHITE">
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                        </Label>
+                        <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="36.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Note" textFill="WHITE">
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                        </Label>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="884.0" styleClass="mouth-component">
+               <children>
+                        <ToggleSwitch maxHeight="-Infinity" minHeight="-Infinity" prefHeight="36.0" prefWidth="30.0" styleClass="available">
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </ToggleSwitch>
+                        <JFXCheckBox contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="20.0" styleClass="implant" wrapText="true" />
+                        <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="25.0" styleClass="mobility">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                        <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="25.0" styleClass="forecast">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                        <JFXButton contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="30.0" styleClass="fork1">
+                            <graphic>
+                                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../img/nofork.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </JFXButton>
+                        <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="36.0" prefWidth="200.0">
+                            <children>
+                                <JFXButton contentDisplay="GRAPHIC_ONLY" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="20.0" styleClass="bleeding1">
+                                    <graphic>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../img/nobleedingoozing.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </JFXButton>
+                                <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="84.0" layoutY="15.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="20.0" styleClass="bleeding2">
+                                    <graphic>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../img/nobleedingoozing.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </JFXButton>
+                                <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="116.0" layoutY="15.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="20.0" styleClass="bleeding3">
+                                    <graphic>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../img/nobleedingoozing.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </JFXButton>
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="36.0" prefWidth="200.0">
+                            <children>
+                                <JFXButton contentDisplay="GRAPHIC_ONLY" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="20.0" styleClass="plaque1">
+                                    <graphic>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../img/nobleedingoozing.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </JFXButton>
+                                <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="84.0" layoutY="15.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="20.0" styleClass="plaque2">
+                                    <graphic>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../img/nobleedingoozing.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </JFXButton>
+                                <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="116.0" layoutY="15.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="20.0" styleClass="plaque3">
+                                    <graphic>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../img/nobleedingoozing.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </JFXButton>
+                            </children>
+                        </HBox>
+                        <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="25.0" styleClass="gum-width">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                        <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="36.0" prefWidth="200.0" spacing="5.0">
+                            <children>
+                                <TextField maxWidth="25.0" minWidth="25.0" styleClass="margin1" />
+                                <TextField layoutX="10.0" layoutY="10.0" maxWidth="25.0" minWidth="25.0" styleClass="margin2" />
+                                <TextField layoutX="10.0" layoutY="10.0" maxWidth="25.0" minWidth="25.0" styleClass="margin3" />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="36.0" prefWidth="200.0" spacing="5.0">
+                            <children>
+                                <TextField maxWidth="25.0" minWidth="25.0" styleClass="depth1" />
+                                <TextField layoutX="10.0" layoutY="10.0" maxWidth="25.0" minWidth="25.0" styleClass="depth2" />
+                                <TextField layoutX="10.0" layoutY="10.0" maxWidth="25.0" minWidth="25.0" styleClass="depth3" />
+                            </children>
+                        </HBox>
+                        <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" styleClass="item_pic1">
+                            <image>
+                                <Image url="@../../img/table1/up11.png" />
+                            </image>
+                            <effect>
+                                <DropShadow />
+                            </effect>
+                        </ImageView>
+                        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="36.0" text="1.1">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </Label>
+                        <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" styleClass="item_pic2">
+                            <image>
+                                <Image url="@../../img/table3/up11b.png" />
+                            </image>
+                            <effect>
+                                <DropShadow />
+                            </effect>
+                        </ImageView>
+                        <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="36.0" prefWidth="200.0" spacing="5.0">
+                            <children>
+                                <TextField maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="26.0" styleClass="depth4" />
+                                <TextField layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="26.0" styleClass="depth5" />
+                                <TextField layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="26.0" styleClass="depth6" />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="36.0" prefWidth="200.0" spacing="5.0">
+                            <children>
+                                <TextField maxWidth="25.0" minWidth="25.0" prefHeight="26.0" styleClass="margin4" />
+                                <TextField layoutX="10.0" layoutY="10.0" maxWidth="25.0" minWidth="25.0" prefHeight="26.0" styleClass="margin5" />
+                                <TextField layoutX="10.0" layoutY="10.0" maxWidth="25.0" minWidth="25.0" prefHeight="26.0" styleClass="margin6" />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="36.0" prefWidth="200.0">
+                            <children>
+                                <JFXButton contentDisplay="GRAPHIC_ONLY" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="20.0" styleClass="plaque4">
+                                    <graphic>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../img/nobleedingoozing.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </JFXButton>
+                                <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="84.0" layoutY="15.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="20.0" styleClass="plaque5">
+                                    <graphic>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../img/nobleedingoozing.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </JFXButton>
+                                <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="116.0" layoutY="15.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="20.0" styleClass="plaque6">
+                                    <graphic>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../img/nobleedingoozing.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </JFXButton>
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="35.0" prefWidth="200.0">
+                            <children>
+                                <JFXButton contentDisplay="GRAPHIC_ONLY" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="20.0" styleClass="bleeding4">
+                                    <graphic>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../img/nobleedingoozing.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </JFXButton>
+                                <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="84.0" layoutY="15.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="20.0" styleClass="bleeding5">
+                                    <graphic>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../img/nobleedingoozing.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </JFXButton>
+                                <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="116.0" layoutY="15.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="20.0" styleClass="bleeding6">
+                                    <graphic>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../img/nobleedingoozing.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </JFXButton>
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER">
+                            <children>
+                                <JFXButton contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" styleClass="fork2">
+                                    <graphic>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../img/nofork.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </JFXButton>
+                                <JFXButton contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="40.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" styleClass="fork3">
+                                    <graphic>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../img/nofork.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </JFXButton>
+                            </children>
+                        </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      </children>
+  </VBox>
