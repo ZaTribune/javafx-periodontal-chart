@@ -1,3 +1,8 @@
+/**
+ *
+ * @author Muhammad Ali Arafah
+ *    https://github.com/ZaTribune
+ */
 package shadow.dental_chart;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -10,6 +15,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Bounds;
@@ -17,6 +23,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -26,6 +33,7 @@ import shadow.dental_chart.entities.MouthItem;
 
 public abstract class DentalChartUtils {
 
+    
     //to be moved to Listeners class
     public static ChangeListener<Number> boxBleedingListener = (ov, oldValue, newValue) -> {
         System.out.println("" + ov);

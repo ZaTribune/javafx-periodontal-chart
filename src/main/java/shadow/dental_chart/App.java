@@ -1,3 +1,8 @@
+/**
+ *
+ * @author Muhammad Ali Arafah
+ *    https://github.com/ZaTribune
+ */
 package shadow.dental_chart;
 
 import javafx.application.Application;
@@ -17,7 +22,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("4_DentalChart_no_images"), 1024, 768);
+        scene = new Scene(loadFXML(DentalChartController.class.getSimpleName()), 1024, 768);
         stage.setScene(scene);
         stage.show();
     }
@@ -26,8 +31,8 @@ public class App extends Application {
         scene.setRoot(loadFXML(fxml));
     }
 
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+    private static Parent loadFXML(String name) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/"+name + ".fxml"));
         return fxmlLoader.load();
     }
 

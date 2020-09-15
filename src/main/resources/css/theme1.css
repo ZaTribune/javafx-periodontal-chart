@@ -67,12 +67,12 @@ WeatherIconView{
 
 }
 .fork-icon2{
--fx-translate-x:-15;
--fx-translate-y:-6;
+    -fx-translate-x:-15;
+    -fx-translate-y:-6;
 }
 .fork-icon3{
--fx-translate-x:5;
--fx-translate-y:5;
+    -fx-translate-x:5;
+    -fx-translate-y:5;
 }
 .card{
     -fx-border-color:-fx-second;
@@ -80,6 +80,15 @@ WeatherIconView{
 }
 #superior JFXButton:hover , #inferior JFXButton:hover{
     -fx-effect: dropshadow(gaussian, -fx-second, 3, 0.75, 0.0, 0.0);
+}
+
+.labeled-grid-cell{
+    -fx-fill:white;
+    -fx-background-color:-fx-second;
+    -fx-max-width:Infinity;
+    -fx-max-height:Infinity;
+
+
 }
 
 /*.bleeding1:disabled Group SVGPath , .bleeding2:disabled Group SVGPath , .bleeding3:disabled Group SVGPath , 

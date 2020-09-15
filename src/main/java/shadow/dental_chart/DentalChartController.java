@@ -1,7 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ *
+ * @author Muhammad Ali Arafah
+ *    https://github.com/ZaTribune
  */
 package shadow.dental_chart;
 
@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXToggleButton;
 import de.jensd.fx.glyphs.weathericons.WeatherIconView;
 import java.net.URL;
 import java.util.List;
@@ -24,10 +25,15 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import java.util.Arrays;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
+import javafx.scene.Group;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -48,7 +54,18 @@ import static shadow.dental_chart.DentalChartUtils.stylePlaqueSVG;
 public class DentalChartController implements Initializable {
 
     // item is referred to a single tooth/
+    
+    private double scale = 1.0;
+
+    @FXML ScrollPane container;
+    @FXML VBox vbox;
+    @FXML Group parent;
+    @FXML ScrollBar vertical;
+    @FXML ScrollBar horizontal;
     @FXML private GridPane superior, inferior;
+    private double zoomMoveX;
+    private double zoomMoveY;
+    
 
     private static final List<Integer> fork_1_Eligable = Arrays.asList(1, 2, 3, 15, 16, 17);
     private static final List<Integer> fork_2_3_Eligable = Arrays.asList(1, 2, 3, 5, 13, 15, 16, 17);
@@ -68,47 +85,28 @@ public class DentalChartController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        //For testing purboses
-        Service<String> process = new Service<>() {
-            @Override
-            protected Task<String> createTask() {
-                return new Task<String>() {
-                    @Override
-                    protected String call() throws Exception {
-                        String s = DentalChartUtils.initializeDentalChart();
-                        ObjectMapper objectMapper = new ObjectMapper();
-                        try {
-                            setChart(objectMapper.readValue(s, DentalChart.class));
-                        } catch (JsonProcessingException e) {
-                            e.printStackTrace();
-                        }
-//                        updateMessage("Some message that may change with execution");
-//                        updateProgress(workDone, totalWork);
-                        return null;
-                    }
-                };
-            }
-        };
+        String s = DentalChartUtils.initializeDentalChart();
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            setChart(objectMapper.readValue(s, DentalChart.class));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
 
-        process.setOnSucceeded(e -> {
+        Platform.runLater(() -> {
             initializeGridPane(superior, chart.getSuperiorMap());
             initializeGridPane(inferior, chart.getInferiorMap());
-        });
 
-        process.start();
-//        String s = DentalChartUtils.initializeDentalChart();
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        try {
-//            setChart(objectMapper.readValue(s, DentalChart.class));
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//        }
-//
-//        Platform.runLater(() -> {
-//            initializeGridPane(superior, chart.getSuperiorMap());
-//            initializeGridPane(inferior, chart.getInferiorMap());
-//
-//        });
+        });
+        
+                    
+            vbox.boundsInParentProperty().addListener(new ChangeListener<Bounds>(){
+                @Override
+                public void changed(ObservableValue<? extends Bounds> ov, Bounds oldValue, Bounds newValue) {
+                   zoomMoveX=newValue.getMinX();
+                    zoomMoveY=-newValue.getMinY();
+                }});
+       
 
     }
 
@@ -130,7 +128,7 @@ public class DentalChartController implements Initializable {
         MouthItem item = userMap.get(columnIndex);//this will return a MouthItem
         switch (rowIndex) {
             case 1:// available
-                ToggleSwitch available = (ToggleSwitch) node;
+                JFXToggleButton available = (JFXToggleButton) node;
                 available.selectedProperty().addListener((ov, oldValue, newValue) -> {
                     //disable or enable all cells on this row
                     //the default for ToggleSwitch in the FXML file must be selected
@@ -451,29 +449,18 @@ public class DentalChartController implements Initializable {
 
     }
 
-    private double scale = 1.0;
-
-    @FXML ScrollPane container;
-    @FXML VBox vbox;
-    @FXML AnchorPane parent;
-
     public void zoomOut(ActionEvent event) {
-        /*
-        According to the ScrollPane document you might try to wrap a Pane in a Group so the ScrollPane is scroll by visual bound not the actual layout bound.
-        ScrollPane layout calculations are based on the layoutBounds rather than the
-        boundsInParent (visual bounds) of the scroll node. If an application wants the
-        scrolling to be based on the visual bounds of the node (for scaled content etc.),
-        they need to wrap the scroll node in a Group. 
-         */
-        //from 0.5 ->1 
         if (scale > 0.5 && scale <= 1.0) {
             scale = scale - 0.1;
             scale = Math.floor(scale * 100) / 100;
             //System.out.println("" + scale);
             vbox.setScaleX(scale);
             vbox.setScaleY(scale);
-            vbox.setMinSize(scale * vbox.getMinWidth(), scale * vbox.getMinHeight());
-            vbox.setPrefSize(scale * vbox.getPrefWidth(), scale * vbox.getPrefHeight());
+            
+           vbox.setTranslateX(zoomMoveX);
+           vbox.setTranslateY(zoomMoveY);
+            System.out.println("layoutX= " + vbox.getTranslateX());
+            System.out.println("layoutY= " + vbox.getTranslateY());
         }
     }
 
