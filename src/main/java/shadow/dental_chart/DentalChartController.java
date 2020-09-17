@@ -102,12 +102,8 @@ public class DentalChartController implements Initializable {
 
     void initializeGridPane(GridPane gridPane, Map<Integer, MouthItem> userMap) {
         gridPane.getChildren().stream().forEach(cell -> {
-            ObservableList<String> styles = cell.getStyleClass();
-            if (!cell.getClass().equals(Label.class)) {// as the superior and inferior label got a null row index value
+            if (!(cell  instanceof Label)) // as the superior and inferior label got a null row index value
                 checkAndAssign(cell, gridPane, userMap);
-                //System.out.println("" + GridPane.getRowIndex(cell) + "\t" + cell);
-            }
-
         });
     }
 
@@ -117,6 +113,9 @@ public class DentalChartController implements Initializable {
         int columnIndex = GridPane.getColumnIndex(node);
         MouthItem item = userMap.get(columnIndex);//this will return a MouthItem
         switch (rowIndex) {
+            case 0:
+                //no use
+                break;
             case 1:// available
                 JFXToggleButton available = (JFXToggleButton) node;
                 available.selectedProperty().addListener((ov, oldValue, newValue) -> {
@@ -464,6 +463,11 @@ public class DentalChartController implements Initializable {
             vbox.setScaleX(scale);
             vbox.setScaleY(scale);
         }
+    }
+    
+    public void infoForCategory (MouseEvent event){
+        System.out.println("clicked");
+    
     }
 
 }

@@ -92,9 +92,9 @@ WeatherIconView{
 }
 
 GridPane .combo-box{
-        -fx-background-radius:0;
-        -fx-focus-color: -fx-second;
-        -fx-unfocus-color: transparent;
+    -fx-background-radius:0;
+    -fx-focus-color: -fx-second;
+    -fx-unfocus-color: transparent;
 }
 
 GridPane .combo-box .list-cell{
@@ -112,5 +112,13 @@ GridPane .combo-box .list-cell:hover{
 GridPane .combo-box .list-view{
     -fx-background-color:-fx-second;
     -fx-background-radius:0;
+}
+
+.grid-category{
+    -fx-background-color:-fx-second;
+    -fx-background-radius:0;
+    -fx-text-fill:white;
+    -fx-max-width:Infinity;
+    -fx-max-height:Infinity;
 }
 

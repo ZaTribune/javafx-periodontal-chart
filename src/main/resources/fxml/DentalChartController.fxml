@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import de.jensd.fx.glyphs.icons525.Icons525View?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import de.jensd.fx.glyphs.weathericons.WeatherIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
@@ -26,7 +27,7 @@
 <?import javafx.scene.text.Font?>
 <?import jfxtras.scene.layout.GridPane?>
 
-<Group xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shadow.dental_chart.DentalChartController">
+<Group stylesheets="@../css/theme1.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shadow.dental_chart.DentalChartController">
    <children>
           <VBox fx:id="vbox" cache="true" cacheHint="SPEED" fillWidth="false" prefHeight="1680.0" prefWidth="1600.0">
               <children>
@@ -104,10 +105,13 @@
                                   <Insets left="10.0" />
                               </padding>
                           </Label>
-                          <Label prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Gum Width" textFill="WHITE" GridPane.rowIndex="7">
+                          <Label contentDisplay="RIGHT" prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Gum Width" textFill="WHITE" GridPane.rowIndex="7">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
+                     <graphic>
+                        <MaterialDesignIconView fill="WHITE" glyphName="INFORMATION" onMouseClicked="#h" size="15" />
+                     </graphic>
                           </Label>
                           <Label prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Gingival Margin" textFill="WHITE" GridPane.rowIndex="8">
                               <padding>
