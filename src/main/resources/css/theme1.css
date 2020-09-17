@@ -90,3 +90,27 @@ WeatherIconView{
 
 
 }
+
+GridPane .combo-box{
+        -fx-background-radius:0;
+        -fx-focus-color: -fx-second;
+        -fx-unfocus-color: transparent;
+}
+
+GridPane .combo-box .list-cell{
+    -fx-background-color:-fx-second;
+    -fx-max-width:38;
+    -fx-min-width:38;
+    -fx-text-fill:white;
+    -fx-padding: 4;
+}
+GridPane .combo-box .list-cell:hover{
+    -fx-background-color:white;
+    -fx-text-fill:-fx-second;
+}
+
+GridPane .combo-box .list-view{
+    -fx-background-color:-fx-second;
+    -fx-background-radius:0;
+}
+

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import jfxtras.internal.scene.control.skin.agenda.icalendar.base24hour.CategorySelectionGridPane?>
+<?import org.controlsfx.control.TaskProgressView?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+   <children>
+      <CategorySelectionGridPane layoutX="69.0" layoutY="53.0" prefHeight="225.0" prefWidth="444.0" />
+      <TaskProgressView layoutX="50.0" layoutY="311.0" prefHeight="187.0" prefWidth="500.0" />
+   </children>
+</AnchorPane>

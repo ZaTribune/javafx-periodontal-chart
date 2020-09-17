@@ -13,18 +13,18 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>14.0.2</version>
+            <version>15-ea+8</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>14.0.2</version>
+            <version>15-ea+8</version>
         </dependency>
         
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
-            <version>14.0.2</version>
+            <version>15-ea+8</version>
         </dependency>
         <dependency>
             <groupId>com.jfoenix</groupId>

@@ -9,13 +9,13 @@
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -25,7 +25,6 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import jfxtras.scene.layout.GridPane?>
-
 
 <Group xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shadow.dental_chart.DentalChartController">
    <children>
@@ -152,7 +151,7 @@
                           </Label>
                           <JFXToggleButton contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" prefHeight="20.0" selected="true" styleClass="available" GridPane.columnIndex="8" GridPane.rowIndex="1" />
                           <JFXCheckBox contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" styleClass="implant" wrapText="true" GridPane.columnIndex="8" GridPane.rowIndex="2" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="8" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="8" GridPane.rowIndex="3" />
                           <HBox alignment="CENTER" prefHeight="35.0" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="5">
                               <children>
                                   <JFXButton contentDisplay="GRAPHIC_ONLY" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="16.0" styleClass="card">
@@ -837,21 +836,20 @@
                           <JFXCheckBox contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" styleClass="implant" wrapText="true" GridPane.columnIndex="13" GridPane.rowIndex="2" />
                           <JFXCheckBox contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" styleClass="implant" wrapText="true" GridPane.columnIndex="12" GridPane.rowIndex="2" />
                           <JFXCheckBox contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" styleClass="implant" wrapText="true" GridPane.columnIndex="11" GridPane.rowIndex="2" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="17" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="16" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="15" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="14" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="13" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="12" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="11" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="10" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="5" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="6" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="7" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="17" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="16" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="15" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="14" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="13" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="12" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="11" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="10" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="7" GridPane.rowIndex="3" />
                           <JFXButton contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="24.0" styleClass="fork1" GridPane.columnIndex="3" GridPane.rowIndex="4">
                               <graphic>
                                   <WeatherIconView fill="WHITE" size="1" />
@@ -2591,6 +2589,7 @@
                               </graphic>
                           </Label>
                   <JFXToggleButton contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" prefHeight="20.0" selected="true" styleClass="available" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                       </children>
                   </GridPane>
                   <Separator prefWidth="200.0" />
@@ -2714,7 +2713,7 @@
                           </Label>
                           <JFXToggleButton contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" prefHeight="20.0" selected="true" styleClass="available" GridPane.columnIndex="8" GridPane.rowIndex="1" />
                           <JFXCheckBox contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" styleClass="implant" wrapText="true" GridPane.columnIndex="8" GridPane.rowIndex="2" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="8" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="8" GridPane.rowIndex="3" />
                           <HBox alignment="CENTER" prefHeight="35.0" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="5">
                               <children>
                                   <JFXButton contentDisplay="GRAPHIC_ONLY" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="16.0" styleClass="card">
@@ -3394,21 +3393,21 @@
                           <JFXCheckBox contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" styleClass="implant" wrapText="true" GridPane.columnIndex="13" GridPane.rowIndex="2" />
                           <JFXCheckBox contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" styleClass="implant" wrapText="true" GridPane.columnIndex="12" GridPane.rowIndex="2" />
                           <JFXCheckBox contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" styleClass="implant" wrapText="true" GridPane.columnIndex="11" GridPane.rowIndex="2" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="17" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="16" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="15" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="14" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="13" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="12" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="11" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="10" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="5" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="6" GridPane.rowIndex="3" />
-                          <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="mobility" GridPane.columnIndex="7" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="17" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="16" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="15" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="14" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="13" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="12" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="11" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="10" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+                          <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="7" GridPane.rowIndex="3" />
                           <JFXButton contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="24.0" styleClass="fork1" GridPane.columnIndex="3" GridPane.rowIndex="4">
                               <graphic>
                                   <WeatherIconView fill="WHITE" size="1" />

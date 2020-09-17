@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXToggleButton;
 import de.jensd.fx.glyphs.weathericons.WeatherIconView;
 import java.net.URL;
@@ -26,11 +27,14 @@ import javafx.scene.layout.GridPane;
 import java.util.Arrays;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextField;
@@ -54,7 +58,6 @@ import static shadow.dental_chart.DentalChartUtils.stylePlaqueSVG;
 public class DentalChartController implements Initializable {
 
     // item is referred to a single tooth/
-    
     private double scale = 1.0;
 
     @FXML ScrollPane container;
@@ -63,7 +66,7 @@ public class DentalChartController implements Initializable {
     @FXML ScrollBar vertical;
     @FXML ScrollBar horizontal;
     @FXML private GridPane superior, inferior;
-    
+
     private static final List<Integer> fork_1_Eligable = Arrays.asList(1, 2, 3, 15, 16, 17);
     private static final List<Integer> fork_2_3_Eligable = Arrays.asList(1, 2, 3, 5, 13, 15, 16, 17);
 
@@ -80,7 +83,7 @@ public class DentalChartController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
         String s = DentalChartUtils.initializeDentalChart();
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -94,7 +97,7 @@ public class DentalChartController implements Initializable {
             initializeGridPane(inferior, chart.getInferiorMap());
 
         });
-       
+
     }
 
     void initializeGridPane(GridPane gridPane, Map<Integer, MouthItem> userMap) {
@@ -129,7 +132,15 @@ public class DentalChartController implements Initializable {
                 implant.selectedProperty().bindBidirectional(item.implantProperty());
                 break;
             case 3://mobility
-
+                 ComboBox<Integer>  mobility=(ComboBox<Integer>) node;
+                 mobility.setItems(FXCollections.observableArrayList(-3,-2,-1,0,1,2,3));
+//                ComboBox<Label> mobility = (ComboBox<Label>) node;
+//                mobility.setItems(FXCollections.observableArrayList(new Label("-3"),new Label("-2"), new Label("-1"),new Label("0") , new Label("1"), new Label("2"),new Label("3") ));
+//                mobility.getSelectionModel().selectedItemProperty().addListener((ov, oldValue, newValue) -> {
+//                    item.setMobility(Integer.parseInt(newValue.getText()));
+//                });
+                
+                mobility.getSelectionModel().select(item.getMobility()>0?item.getMobility()+4:item.getMobility()+3);
                 break;
             case 4://fork
                 if (node != null) {
