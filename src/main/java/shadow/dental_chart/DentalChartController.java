@@ -63,13 +63,9 @@ public class DentalChartController implements Initializable {
     @FXML ScrollBar vertical;
     @FXML ScrollBar horizontal;
     @FXML private GridPane superior, inferior;
-    private double zoomMoveX;
-    private double zoomMoveY;
     
-
     private static final List<Integer> fork_1_Eligable = Arrays.asList(1, 2, 3, 15, 16, 17);
     private static final List<Integer> fork_2_3_Eligable = Arrays.asList(1, 2, 3, 5, 13, 15, 16, 17);
-    private Integer COMUMN;
 
     //private Map<Integer, MouthItem> userMap = new HashMap<>();
     DentalChart chart;
@@ -98,16 +94,7 @@ public class DentalChartController implements Initializable {
             initializeGridPane(inferior, chart.getInferiorMap());
 
         });
-        
-                    
-            vbox.boundsInParentProperty().addListener(new ChangeListener<Bounds>(){
-                @Override
-                public void changed(ObservableValue<? extends Bounds> ov, Bounds oldValue, Bounds newValue) {
-                   zoomMoveX=newValue.getMinX();
-                    zoomMoveY=-newValue.getMinY();
-                }});
        
-
     }
 
     void initializeGridPane(GridPane gridPane, Map<Integer, MouthItem> userMap) {
@@ -453,14 +440,8 @@ public class DentalChartController implements Initializable {
         if (scale > 0.5 && scale <= 1.0) {
             scale = scale - 0.1;
             scale = Math.floor(scale * 100) / 100;
-            //System.out.println("" + scale);
             vbox.setScaleX(scale);
             vbox.setScaleY(scale);
-            
-           vbox.setTranslateX(zoomMoveX);
-           vbox.setTranslateY(zoomMoveY);
-            System.out.println("layoutX= " + vbox.getTranslateX());
-            System.out.println("layoutY= " + vbox.getTranslateY());
         }
     }
 
@@ -471,9 +452,6 @@ public class DentalChartController implements Initializable {
             scale = Math.floor(scale * 100) / 100;
             vbox.setScaleX(scale);
             vbox.setScaleY(scale);
-            vbox.setMinSize(scale * vbox.getMinWidth(), scale * vbox.getMinHeight());
-            vbox.setPrefSize(scale * vbox.getPrefWidth(), scale * vbox.getPrefHeight());
-
         }
     }
 

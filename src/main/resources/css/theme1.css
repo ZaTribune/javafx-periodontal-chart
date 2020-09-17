@@ -79,7 +79,7 @@ WeatherIconView{
     -fx-border-width:1;
 }
 #superior JFXButton:hover , #inferior JFXButton:hover{
-    -fx-effect: dropshadow(gaussian, -fx-second, 3, 0.75, 0.0, 0.0);
+    -fx-background-color:-fx-second;
 }
 
 .labeled-grid-cell{
@@ -90,18 +90,3 @@ WeatherIconView{
 
 
 }
-
-/*.bleeding1:disabled Group SVGPath , .bleeding2:disabled Group SVGPath , .bleeding3:disabled Group SVGPath , 
-.plaque1:disabled Group SVGPath , .plaque2:disabled Group SVGPath , .plaque3:disabled Group SVGPath ,
-.bleeding4:disabled Group SVGPath , .bleeding5:disabled Group SVGPath , .bleeding6:disabled Group SVGPath ,
-.plaque4:disabled Group SVGPath , .plaque5:disabled Group SVGPath , .plaque6:disabled Group SVGPath{
-    -fx-fill:white;
-}*/
-
-/*.button .svg {
-    -fx-fill: -fill;
-}
-
-.button:hover .svg {
-    -fx-fill: -hover-fill;
-}*/
