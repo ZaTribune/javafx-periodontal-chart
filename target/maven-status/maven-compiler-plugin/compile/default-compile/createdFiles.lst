@@ -1,8 +1,9 @@
 shadow\dental_chart\DentalChartController.class
-shadow\dental_chart\DentalChartController$2.class
+shadow\dental_chart\validators\TextLengthValidator.class
 module-info.class
 shadow\dental_chart\entities\MouthItem.class
 shadow\dental_chart\entities\DentalChart.class
+shadow\dental_chart\MyScrollPane.class
 shadow\dental_chart\TestJsonSerialize.class
 shadow\dental_chart\DentalChartController$1.class
 shadow\dental_chart\MainJar.class
