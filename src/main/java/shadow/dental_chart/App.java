@@ -44,7 +44,7 @@ public class App extends Application {
         */
         MyScrollPane scrollPane=new MyScrollPane();
         scrollPane.setContent(fxmlLoader.load());        
-        scrollPane.getStylesheets().add(App.class.getResource("/css/theme1.css").toExternalForm());
+        scrollPane.getStylesheets().add(App.class.getResource("/css/chart.css").toExternalForm());
         return scrollPane;
     }
 

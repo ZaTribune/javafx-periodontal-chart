@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import de.jensd.fx.glyphs.icons525.Icons525View?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
@@ -12,28 +13,79 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import jfxtras.scene.layout.GridPane?>
 
-<Group stylesheets="@../css/theme1.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shadow.dental_chart.DentalChartController">
+<Group stylesheets="@../css/chart.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shadow.dental_chart.DentalChartController">
    <children>
-          <VBox fx:id="vbox" cache="true" cacheHint="SPEED" fillWidth="false" prefHeight="1680.0" prefWidth="1600.0">
+          <VBox fx:id="vbox" cache="true" cacheHint="SPEED" fillWidth="false" prefHeight="1680.0" prefWidth="1600.0" style="-fx-background-color: -fx-first;">
               <children>
-                  <GridPane fx:id="superior" cache="true" cacheHint="SPEED" prefHeight="829.0" prefWidth="1699.0">
+            <HBox maxWidth="1.7976931348623157E308" prefHeight="100.0">
+               <children>
+                              <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#zoomIn" styleClass="chart-control-button">
+                                  <graphic>
+                                      <Icons525View fill="#ffffff" glyphName="ZOOM_IN" size="20" />
+                                  </graphic>
+                              </JFXButton>
+                              <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#zoomOut" styleClass="chart-control-button">
+                                  <graphic>
+                                      <Icons525View fill="#ffffff" glyphName="ZOOM_OUT" size="20" />
+                                  </graphic>
+                              </JFXButton>
+                  <GridPane prefHeight="91.0" prefWidth="412.0">
+                     <columnConstraints>
+                        <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
+                        <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="75.0" />
+                        <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
+                        <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="75.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" />
+                     </rowConstraints>
+                     <children>
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Mean Probing Depth" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Mean Attachment Level" textFill="WHITE" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Plaque" textFill="WHITE" GridPane.columnIndex="2">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="260.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Bleeding on Probing" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="meanProbingDepth" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" textFill="WHITE" GridPane.columnIndex="1" />
+                        <Label layoutX="160.0" layoutY="16.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="plaquePercentage" layoutX="160.0" layoutY="16.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" textFill="WHITE" GridPane.columnIndex="3" />
+                        <Label layoutX="386.0" layoutY="16.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+               </children>
+            </HBox>
+                  <GridPane fx:id="superior" cache="true" cacheHint="SPEED" prefHeight="829.0" prefWidth="1699.0" style="-fx-background-color: white;">
                       <columnConstraints>
-                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="115.0" />
+                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="125.0" />
                           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="90.0" />
                           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="90.0" />
                           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="90.0" />
@@ -61,7 +113,7 @@
                           <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" />
                           <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" />
                           <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" />
-                          <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" />
+                          <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" valignment="BOTTOM" />
                           <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" />
                           <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" />
                           <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="156.0" />
@@ -75,80 +127,83 @@
                           <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" />
                       </rowConstraints>
                       <children>
-                          <Label prefHeight="33.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Available" textFill="WHITE" GridPane.rowIndex="1">
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="33.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Available" textFill="WHITE" GridPane.rowIndex="1">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
                           </Label>
-                          <Label prefHeight="30.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Implant" textFill="WHITE" GridPane.rowIndex="2">
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Implant" textFill="WHITE" GridPane.rowIndex="2">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
                           </Label>
-                          <Label prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Mobility" textFill="WHITE" GridPane.rowIndex="3">
-                              <padding>
-                                  <Insets left="10.0" />
-                              </padding>
-                          </Label>
-                          <Label prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Fork" textFill="WHITE" GridPane.rowIndex="4">
-                              <padding>
-                                  <Insets left="10.0" />
-                              </padding>
-                          </Label>
-                          <Label prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Bleeding/Oozing" textFill="WHITE" GridPane.rowIndex="5">
-                              <padding>
-                                  <Insets left="10.0" />
-                              </padding>
-                          </Label>
-                          <Label prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Plaque" textFill="WHITE" GridPane.rowIndex="6">
-                              <padding>
-                                  <Insets left="10.0" />
-                              </padding>
-                          </Label>
-                          <Label contentDisplay="RIGHT" prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Gum Width" textFill="WHITE" GridPane.rowIndex="7">
+                          <Label contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Mobility" textFill="WHITE" GridPane.rowIndex="3">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
                      <graphic>
-                        <MaterialDesignIconView fill="WHITE" glyphName="INFORMATION" onMouseClicked="#h" size="15" />
+                        <MaterialDesignIconView fill="WHITE" glyphName="INFORMATION" onMouseClicked="#infoForCategory" size="15" />
                      </graphic>
                           </Label>
-                          <Label prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Gingival Margin" textFill="WHITE" GridPane.rowIndex="8">
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Furcation" textFill="WHITE" GridPane.rowIndex="4">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
                           </Label>
-                          <Label prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Probing Depth" textFill="WHITE" GridPane.rowIndex="9">
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Bleeding on Probing" textFill="WHITE" GridPane.rowIndex="5">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
                           </Label>
-                          <Label prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Probing Depth" textFill="WHITE" GridPane.rowIndex="13">
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Plaque" textFill="WHITE" GridPane.rowIndex="6">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
                           </Label>
-                          <Label prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Gingival Margin" textFill="WHITE" GridPane.rowIndex="14">
+                          <Label contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Gum Width" textFill="WHITE" GridPane.rowIndex="7">
+                              <padding>
+                                  <Insets left="10.0" />
+                              </padding>
+                     <graphic>
+                        <MaterialDesignIconView fill="WHITE" glyphName="INFORMATION" onMouseClicked="#infoForCategory" size="15" />
+                     </graphic>
+                          </Label>
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Gingival Margin" textFill="WHITE" GridPane.rowIndex="8">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
                           </Label>
-                          <Label prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Plaque" textFill="WHITE" GridPane.rowIndex="15">
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Probing Depth" textFill="WHITE" GridPane.rowIndex="9">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
                           </Label>
-                          <Label prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Bleeding/Oozing" textFill="WHITE" GridPane.rowIndex="16">
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Probing Depth" textFill="WHITE" GridPane.rowIndex="13">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
                           </Label>
-                          <Label prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Fork" textFill="WHITE" GridPane.rowIndex="17">
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Gingival Margin" textFill="WHITE" GridPane.rowIndex="14">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
                           </Label>
-                          <Label prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Note" textFill="WHITE" GridPane.rowIndex="18">
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Plaque" textFill="WHITE" GridPane.rowIndex="15">
+                              <padding>
+                                  <Insets left="10.0" />
+                              </padding>
+                          </Label>
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Bleeding on Probing" textFill="WHITE" GridPane.rowIndex="16">
+                              <padding>
+                                  <Insets left="10.0" />
+                              </padding>
+                          </Label>
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Furcation" textFill="WHITE" GridPane.rowIndex="17">
+                              <padding>
+                                  <Insets left="10.0" />
+                              </padding>
+                          </Label>
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Note" textFill="WHITE" GridPane.rowIndex="18">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
@@ -194,7 +249,7 @@
                                   </JFXButton>
                               </children>
                           </HBox>
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="8" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="8" GridPane.rowIndex="7" />
                           <HBox alignment="CENTER" prefHeight="12.0" prefWidth="200.0" spacing="0.0" GridPane.columnIndex="8" GridPane.rowIndex="8">
                               <children>
                                   <TextField maxWidth="25.0" minWidth="25.0" styleClass="margin1" />
@@ -216,15 +271,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="64.0" layoutY="3.0" startX="30.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="64.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="47.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="30.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="65.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="47.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="30.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets top="42.0" />
+                                          <Insets top="50.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -241,6 +295,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="59.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="27.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets bottom="21.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <HBox alignment="CENTER" prefHeight="12.0" prefWidth="200.0" spacing="0.0" GridPane.columnIndex="8" GridPane.rowIndex="13">
@@ -302,15 +366,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="60.0" layoutY="3.0" startX="34.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="60.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="46.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="34.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="60.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="46.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="34.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets top="42.0" />
+                                          <Insets top="50.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -322,15 +385,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="55.0" layoutY="3.0" startX="30.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="55.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="42.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="30.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="60.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="30.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets top="42.0" />
+                                          <Insets top="50.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -342,15 +404,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="60.0" layoutY="3.0" startX="30.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="60.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="45.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="30.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="60.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="30.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets top="42.0" />
+                                          <Insets top="50.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -362,15 +423,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="60.0" layoutY="3.0" startX="30.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="60.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="45.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="30.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="60.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="30.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets top="42.0" />
+                                          <Insets top="50.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -385,15 +445,14 @@
                                           <Rectangle2D />
                                       </viewport>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="72.0" layoutY="3.0" startX="22.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="72.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="46.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="22.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="72.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="46.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="20.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets top="42.0" />
+                                          <Insets top="50.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -405,15 +464,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="65.0" layoutY="3.0" startX="28.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="65.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="42.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="25.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="65.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="42.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="25.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets top="45.0" />
+                                          <Insets top="50.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -428,15 +486,14 @@
                                           <Rectangle2D />
                                       </viewport>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="65.0" layoutY="3.0" startX="25.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="65.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="45.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="25.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="65.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="25.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets top="45.0" />
+                                          <Insets top="50.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -483,6 +540,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="58.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="32.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets bottom="21.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-down-pic" GridPane.columnIndex="6" GridPane.rowIndex="12">
@@ -492,6 +559,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="57.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="32.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets bottom="21.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-down-pic" GridPane.columnIndex="5" GridPane.rowIndex="12">
@@ -501,6 +578,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="60.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="31.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets bottom="21.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-down-pic" GridPane.columnIndex="4" GridPane.rowIndex="12">
@@ -510,6 +597,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="58.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="30.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets bottom="21.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-down-pic" GridPane.columnIndex="3" GridPane.rowIndex="12">
@@ -519,6 +616,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="65.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="40.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="18.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets bottom="21.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-down-pic" GridPane.columnIndex="2" GridPane.rowIndex="12">
@@ -528,6 +635,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="63.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="42.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="25.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets bottom="21.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-down-pic" GridPane.columnIndex="1" GridPane.rowIndex="12">
@@ -537,6 +654,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="65.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="25.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets bottom="21.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <Label alignment="CENTER" contentDisplay="CENTER" minHeight="30.0" minWidth="69" text="2.1" GridPane.columnIndex="10" GridPane.rowIndex="11">
@@ -586,15 +713,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="60.0" layoutY="3.0" startX="28.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="60.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="44.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="28.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="59.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="44.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="28.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets top="42.0" />
+                                          <Insets top="50.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -606,15 +732,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="65.0" layoutY="3.0" startX="27.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="65.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="46.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="27.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="63.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="27.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets top="42.0" />
+                                          <Insets top="50.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -626,15 +751,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="66.0" layoutY="3.0" startX="27.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="66.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="45.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="27.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="66.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="27.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets top="42.0" />
+                                          <Insets top="50.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -646,15 +770,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="74.0" layoutY="3.0" startX="18.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="74.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="44.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="18.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="74.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="44.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="18.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets top="42.0" />
+                                          <Insets top="50.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -666,15 +789,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="60.0" layoutY="3.0" startX="30.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="60.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="45.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="30.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="60.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="30.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets top="42.0" />
+                                          <Insets top="50.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -686,15 +808,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="58.0" layoutY="3.0" startX="32.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="58.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="45.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="32.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="58.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="32.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets top="42.0" />
+                                          <Insets top="50.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -706,15 +827,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="62.0" layoutY="3.0" startX="34.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="62.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="48.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="34.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="62.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="48.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="34.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets top="42.0" />
+                                          <Insets top="50.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -726,15 +846,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="58.0" layoutY="3.0" startX="30.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="58.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="44.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="30.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="58.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="44.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="30.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets top="42.0" />
+                                          <Insets top="50.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -746,6 +865,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="65.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="46.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="27.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets bottom="21.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-down-pic" GridPane.columnIndex="16" GridPane.rowIndex="12">
@@ -755,6 +884,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="66.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="27.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets bottom="21.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-down-pic" GridPane.columnIndex="15" GridPane.rowIndex="12">
@@ -764,6 +903,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="74.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="48.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="23.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets bottom="21.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-down-pic" GridPane.columnIndex="14" GridPane.rowIndex="12">
@@ -773,6 +922,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="60.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="46.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="32.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets bottom="21.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-down-pic" GridPane.columnIndex="13" GridPane.rowIndex="12">
@@ -782,6 +941,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="58.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="32.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets bottom="21.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-down-pic" GridPane.columnIndex="12" GridPane.rowIndex="12">
@@ -791,6 +960,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="58.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="32.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets bottom="21.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-down-pic" GridPane.columnIndex="11" GridPane.rowIndex="12">
@@ -800,6 +979,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="58.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="46.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="35.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets bottom="21.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-down-pic" GridPane.columnIndex="10" GridPane.rowIndex="12">
@@ -809,6 +998,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="62.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="46.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="31.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets bottom="21.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <JFXToggleButton contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" prefHeight="20.0" selected="true" styleClass="available" GridPane.columnIndex="17" GridPane.rowIndex="1" />
@@ -1454,21 +1653,20 @@
                                   </JFXButton>
                               </children>
                           </HBox>
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="4" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="5" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="6" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="7" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="17" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="16" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="15" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="14" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="13" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="12" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="11" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="10" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="5" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="6" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="7" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="17" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="16" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="15" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="14" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="13" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="12" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="11" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="10" GridPane.rowIndex="7" />
                           <HBox alignment="CENTER" prefHeight="12.0" prefWidth="200.0" spacing="0.0" GridPane.columnIndex="7" GridPane.rowIndex="8">
                               <children>
                                   <TextField maxWidth="25.0" minWidth="25.0" styleClass="margin1" />
@@ -2573,33 +2771,30 @@
                           </HBox>
                           <Label maxWidth="1.7976931348623157E308" prefHeight="40.0" style="-fx-background-color: -fx-first;" text="Superior" textFill="WHITE" GridPane.columnSpan="2147483647">
                               <padding>
-                                  <Insets left="10.0" />
+                                  <Insets left="150.0" />
                               </padding>
-                              <graphic>
-                                  <HBox prefWidth="200.0">
-                                      <children>
-                                          <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#zoomIn">
-                                              <graphic>
-                                                  <Icons525View fill="#ffffff" glyphName="ZOOM_IN" size="20" />
-                                              </graphic>
-                                          </JFXButton>
-                                          <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" onAction="#zoomOut">
-                                              <graphic>
-                                                  <Icons525View fill="#ffffff" glyphName="ZOOM_OUT" size="20" />
-                                              </graphic>
-                                          </JFXButton>
-                                      </children>
-                                  </HBox>
-                              </graphic>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
                           </Label>
                   <JFXToggleButton contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" prefHeight="20.0" selected="true" styleClass="available" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <ComboBox prefWidth="52.0" styleClass="mobility" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Buccal" GridPane.rowIndex="10">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="10.0" layoutY="376.0" maxWidth="1.7976931348623157E308" text="Lingual" GridPane.rowIndex="12">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
                       </children>
                   </GridPane>
-                  <Separator prefWidth="200.0" />
-                  <GridPane fx:id="inferior" cache="true" cacheHint="SPEED" layoutX="10.0" layoutY="50.0" prefHeight="828.0" prefWidth="1782.0">
+                  <GridPane fx:id="inferior" cache="true" cacheHint="SPEED" layoutX="10.0" layoutY="50.0" prefHeight="828.0" prefWidth="1782.0" style="-fx-background-color: white;">
                       <columnConstraints>
-                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="115.0" />
+                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="125.0" />
                           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="90.0" />
                           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="90.0" />
                           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="90.0" />
@@ -2640,77 +2835,77 @@
                           <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" />
                       </rowConstraints>
                       <children>
-                          <Label prefHeight="33.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Available" textFill="WHITE" GridPane.rowIndex="1">
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="33.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Available" textFill="WHITE" GridPane.rowIndex="1">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
                           </Label>
-                          <Label prefHeight="30.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Implant" textFill="WHITE" GridPane.rowIndex="2">
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Implant" textFill="WHITE" GridPane.rowIndex="2">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
                           </Label>
-                          <Label prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Mobility" textFill="WHITE" GridPane.rowIndex="3">
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Mobility" textFill="WHITE" GridPane.rowIndex="3">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
                           </Label>
-                          <Label prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Fork" textFill="WHITE" GridPane.rowIndex="4">
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Furcation" textFill="WHITE" GridPane.rowIndex="4">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
                           </Label>
-                          <Label prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Bleeding/Oozing" textFill="WHITE" GridPane.rowIndex="5">
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Bleeding on Probing" textFill="WHITE" GridPane.rowIndex="5">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
                           </Label>
-                          <Label prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Plaque" textFill="WHITE" GridPane.rowIndex="6">
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Plaque" textFill="WHITE" GridPane.rowIndex="6">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
                           </Label>
-                          <Label prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Gum Width" textFill="WHITE" GridPane.rowIndex="7">
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Gum Width" textFill="WHITE" GridPane.rowIndex="7">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
                           </Label>
-                          <Label prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Gingival Margin" textFill="WHITE" GridPane.rowIndex="8">
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Gingival Margin" textFill="WHITE" GridPane.rowIndex="8">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
                           </Label>
-                          <Label prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Probing Depth" textFill="WHITE" GridPane.rowIndex="9">
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Probing Depth" textFill="WHITE" GridPane.rowIndex="9">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
                           </Label>
-                          <Label prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Probing Depth" textFill="WHITE" GridPane.rowIndex="13">
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Probing Depth" textFill="WHITE" GridPane.rowIndex="13">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
                           </Label>
-                          <Label prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Gingival Margin" textFill="WHITE" GridPane.rowIndex="14">
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Gingival Margin" textFill="WHITE" GridPane.rowIndex="14">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
                           </Label>
-                          <Label prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Plaque" textFill="WHITE" GridPane.rowIndex="15">
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Plaque" textFill="WHITE" GridPane.rowIndex="15">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
                           </Label>
-                          <Label prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Bleeding/Oozing" textFill="WHITE" GridPane.rowIndex="16">
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Bleeding on Probing" textFill="WHITE" GridPane.rowIndex="16">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
                           </Label>
-                          <Label prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Fork" textFill="WHITE" GridPane.rowIndex="17">
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Furcation" textFill="WHITE" GridPane.rowIndex="17">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
                           </Label>
-                          <Label prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Note" textFill="WHITE" GridPane.rowIndex="18">
+                          <Label maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: -fx-second;" text="Note" textFill="WHITE" GridPane.rowIndex="18">
                               <padding>
                                   <Insets left="10.0" />
                               </padding>
@@ -2756,7 +2951,7 @@
                                   </JFXButton>
                               </children>
                           </HBox>
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="8" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="8" GridPane.rowIndex="7" />
                           <HBox alignment="CENTER" prefHeight="12.0" prefWidth="200.0" spacing="0.0" GridPane.columnIndex="8" GridPane.rowIndex="8">
                               <children>
                                   <TextField maxWidth="25.0" minWidth="25.0" styleClass="margin1" />
@@ -2778,6 +2973,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="57.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="34.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets top="50.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <Label alignment="CENTER" contentDisplay="CENTER" minHeight="30.0" minWidth="69" text="4.1" GridPane.columnIndex="8" GridPane.rowIndex="11">
@@ -2792,15 +2997,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="64.0" layoutY="3.0" startX="30.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="64.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="47.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="30.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="57.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="34.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets bottom="28.0" />
+                                          <Insets bottom="22.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -2864,6 +3068,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="57.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="46.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="34.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets top="50.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-up-pic" GridPane.columnIndex="6" GridPane.rowIndex="10">
@@ -2873,6 +3087,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="56.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="32.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets top="50.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-up-pic" GridPane.columnIndex="5" GridPane.rowIndex="10">
@@ -2882,6 +3106,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="58.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="30.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets top="50.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-up-pic" GridPane.columnIndex="4" GridPane.rowIndex="10">
@@ -2891,6 +3125,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="58.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="32.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets top="50.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-up-pic" GridPane.columnIndex="3" GridPane.rowIndex="10">
@@ -2900,6 +3144,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="68.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="46.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="22.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets top="50.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-up-pic" GridPane.columnIndex="2" GridPane.rowIndex="10">
@@ -2909,6 +3163,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="67.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="42.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="23.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets top="50.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-up-pic" GridPane.columnIndex="1" GridPane.rowIndex="10">
@@ -2918,6 +3182,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="67.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="23.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets top="50.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <Label alignment="CENTER" contentDisplay="CENTER" minHeight="30.0" minWidth="69" text="4.2" GridPane.columnIndex="7" GridPane.rowIndex="11">
@@ -2962,15 +3236,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="60.0" layoutY="3.0" startX="34.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="60.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="46.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="34.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="57.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="46.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="34.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets bottom="28.0" />
+                                          <Insets bottom="22.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -2982,15 +3255,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="55.0" layoutY="3.0" startX="30.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="55.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="42.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="30.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="55.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="42.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="32.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets bottom="28.0" />
+                                          <Insets bottom="22.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -3002,15 +3274,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="60.0" layoutY="3.0" startX="30.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="60.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="45.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="30.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="60.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="46.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="33.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets bottom="28.0" />
+                                          <Insets bottom="22.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -3022,15 +3293,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="60.0" layoutY="3.0" startX="30.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="60.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="45.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="30.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="60.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="30.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets bottom="28.0" />
+                                          <Insets bottom="22.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -3042,15 +3312,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="72.0" layoutY="3.0" startX="22.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="72.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="46.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="22.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="72.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="46.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="22.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets bottom="28.0" />
+                                          <Insets bottom="22.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -3062,15 +3331,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="65.0" layoutY="3.0" startX="28.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="65.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="42.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="25.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="67.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="42.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="23.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets bottom="28.0" />
+                                          <Insets bottom="22.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -3082,15 +3350,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="65.0" layoutY="3.0" startX="25.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="65.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="45.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="25.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="65.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="25.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets bottom="26.0" />
+                                          <Insets bottom="21.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -3142,6 +3409,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="57.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="34.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets top="50.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-up-pic" GridPane.columnIndex="17" GridPane.rowIndex="10">
@@ -3151,6 +3428,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="70.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="46.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="22.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets top="50.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-up-pic" GridPane.columnIndex="16" GridPane.rowIndex="10">
@@ -3160,6 +3447,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="67.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="25.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets top="50.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-up-pic" GridPane.columnIndex="15" GridPane.rowIndex="10">
@@ -3169,6 +3466,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="70.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="44.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="20.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets top="50.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-up-pic" GridPane.columnIndex="14" GridPane.rowIndex="10">
@@ -3178,6 +3485,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="59.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="32.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets top="50.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-up-pic" GridPane.columnIndex="13" GridPane.rowIndex="10">
@@ -3187,6 +3504,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="58.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="32.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets top="50.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-up-pic" GridPane.columnIndex="12" GridPane.rowIndex="10">
@@ -3196,6 +3523,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="58.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="34.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets top="50.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-up-pic" GridPane.columnIndex="11" GridPane.rowIndex="10">
@@ -3205,6 +3542,16 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="56.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                              <Circle fill="DODGERBLUE" layoutX="44.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                              <Circle fill="DODGERBLUE" layoutX="35.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
+                           </children>
+                           <StackPane.margin>
+                              <Insets top="50.0" />
+                           </StackPane.margin>
+                        </Pane>
                               </children>
                           </StackPane>
                           <StackPane styleClass="container-down-pic" GridPane.columnIndex="17" GridPane.rowIndex="12">
@@ -3214,15 +3561,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="65.0" layoutY="3.0" startX="27.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="65.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="46.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="27.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="66.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="46.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="26.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets bottom="28.0" />
+                                          <Insets bottom="22.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -3234,15 +3580,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="66.0" layoutY="3.0" startX="27.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="66.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="45.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="27.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="66.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="24.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets bottom="28.0" />
+                                          <Insets bottom="22.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -3254,15 +3599,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="74.0" layoutY="3.0" startX="18.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="74.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="44.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="18.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="72.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="44.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="18.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets bottom="28.0" />
+                                          <Insets bottom="22.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -3274,15 +3618,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="60.0" layoutY="3.0" startX="30.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="60.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="45.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="30.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="56.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="32.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets bottom="28.0" />
+                                          <Insets bottom="22.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -3294,15 +3637,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="58.0" layoutY="3.0" startX="32.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="58.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="45.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="32.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="58.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="32.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets bottom="28.0" />
+                                          <Insets bottom="22.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -3314,15 +3656,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="62.0" layoutY="3.0" startX="34.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="62.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="48.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="34.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="58.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="34.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets bottom="28.0" />
+                                          <Insets bottom="22.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -3334,15 +3675,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="58.0" layoutY="3.0" startX="30.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="58.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="44.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="30.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="56.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="44.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="35.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets bottom="28.0" />
+                                          <Insets bottom="22.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -3354,15 +3694,14 @@
                                           <DropShadow />
                                       </effect>
                                   </ImageView>
-                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0">
+                                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container">
                                       <children>
-                                          <Line endX="60.0" layoutY="3.0" startX="28.0" styleClass="line-nerve" />
-                                          <Circle fill="DODGERBLUE" layoutX="60.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve1" />
-                                          <Circle fill="DODGERBLUE" layoutX="44.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve2" />
-                                          <Circle fill="DODGERBLUE" layoutX="28.0" layoutY="3.0" radius="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="circle-nerve3" />
+                                          <Circle fill="DODGERBLUE" layoutX="57.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3" />
+                                          <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2" />
+                                          <Circle fill="DODGERBLUE" layoutX="34.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1" />
                                       </children>
                                       <StackPane.margin>
-                                          <Insets bottom="28.0" />
+                                          <Insets bottom="22.0" />
                                       </StackPane.margin>
                                   </Pane>
                               </children>
@@ -4012,21 +4351,21 @@
                                   </JFXButton>
                               </children>
                           </HBox>
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="4" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="5" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="6" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="7" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="17" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="16" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="15" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="14" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="13" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="12" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="11" GridPane.rowIndex="7" />
-                          <TextField maxWidth="25.0" minWidth="25.0" prefWidth="25.0" styleClass="gum-width" GridPane.columnIndex="10" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="5" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="6" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="7" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="17" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="16" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="15" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="14" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="13" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="12" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="11" GridPane.rowIndex="7" />
+                          <JFXSlider blockIncrement="1.0" majorTickUnit="75.0" max="200.0" maxWidth="-Infinity" min="50.0" minorTickCount="10" prefHeight="18.0" prefWidth="72.0" showTickMarks="true" snapToTicks="true" styleClass="gum-width" value="50.0" GridPane.columnIndex="10" GridPane.rowIndex="7" />
                           <HBox alignment="CENTER" prefHeight="12.0" prefWidth="200.0" spacing="0.0" GridPane.columnIndex="7" GridPane.rowIndex="8">
                               <children>
                                   <TextField maxWidth="25.0" minWidth="25.0" styleClass="margin1" />
@@ -5073,12 +5412,24 @@
                           </HBox>
                           <Label maxWidth="1.7976931348623157E308" prefHeight="40.0" style="-fx-background-color: -fx-first;" text="Inferior" textFill="WHITE" GridPane.columnSpan="2147483647">
                               <padding>
-                                  <Insets left="10.0" />
+                                  <Insets left="150.0" />
                               </padding>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
                           </Label>
+                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Buccal" GridPane.rowIndex="10">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Lingual" GridPane.rowIndex="12">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
                       </children>
                   </GridPane>
-                  <Separator layoutX="10.0" layoutY="910.0" prefHeight="0.0" prefWidth="1782.0" />
               </children>
           </VBox>
    </children>

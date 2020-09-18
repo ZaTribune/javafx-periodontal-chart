@@ -10,30 +10,135 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.weathericons.WeatherIcon;
 import de.jensd.fx.glyphs.weathericons.WeatherIconView;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.geometry.Bounds;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.TextInputControl;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.SVGPath;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import shadow.dental_chart.entities.DentalChart;
 import shadow.dental_chart.entities.MouthItem;
+import static shadow.dental_chart.entities.MouthItem.calculateTotalPlaque;
+import static shadow.dental_chart.entities.MouthItem.calculateTotalProbingDepth;
 
 public abstract class DentalChartUtils {
 
-    
+    public static void drawRedPath(Pane pane, List<Circle> circles, MouthItem item, int direction) {
+        //todo originY basically is always 3 : so we can remove it entirely
+        Path redPath = new Path();
+        Circle redCircle1 = circles.get(0);
+        Circle redCircle2 = circles.get(1);
+        Circle redCircle3 = circles.get(2);
+        int marginA;
+        int marginB;
+        int marginC;
+        int depthA;
+        int depthB;
+        int depthC;
+        if (direction == -1) {
+            marginA = Integer.parseInt(item.getMargin1());
+            marginB = Integer.parseInt(item.getMargin2());
+            marginC = Integer.parseInt(item.getMargin3());
+            depthA = Integer.parseInt(item.getDepth1());
+            depthB = Integer.parseInt(item.getDepth2());
+            depthC = Integer.parseInt(item.getDepth3());
+        } else {
+            marginA = Integer.parseInt(item.getMargin4());
+            marginB = Integer.parseInt(item.getMargin5());
+            marginC = Integer.parseInt(item.getMargin6());
+            depthA = Integer.parseInt(item.getDepth4());
+            depthB = Integer.parseInt(item.getDepth5());
+            depthC = Integer.parseInt(item.getDepth6());
+        }
+
+        double redHeight1 = 5 * marginA * direction;
+        double redHeight2 = 5 * marginB * direction;
+        double redHeight3 = 5 * marginC * direction;
+
+        redPath.getElements().addAll(
+                new MoveTo(redCircle1.getLayoutX(), 0),
+                new LineTo(redCircle1.getLayoutX(), redHeight1),
+                new LineTo(redCircle2.getLayoutX(), redHeight2),
+                new LineTo(redCircle3.getLayoutX(), redHeight3),
+                new LineTo(redCircle3.getLayoutX(), 0)
+        );
+        redCircle1.setLayoutY(redHeight1);
+        redCircle2.setLayoutY(redHeight2);
+        redCircle3.setLayoutY(redHeight3);
+        redCircle1.setFill(Color.FIREBRICK);
+        redCircle2.setFill(Color.FIREBRICK);
+        redCircle3.setFill(Color.FIREBRICK);
+        redCircle1.setStroke(Color.CRIMSON);
+        redCircle2.setStroke(Color.CRIMSON);
+        redCircle3.setStroke(Color.CRIMSON);
+
+        redPath.setStroke(Color.RED);
+        redPath.setFill(Color.rgb(81, 33, 255, 0.3));
+
+        // BLUE
+        Path bluePath = new Path();
+        double blueHeight1;
+        double blueHeight2;
+        double blueHeight3;
+
+        blueHeight1 = 5 * (marginA + depthA) * direction;// as per chart the ratio
+        blueHeight2 = 5 * (marginB + depthB) * direction;
+        blueHeight3 = 5 * (marginC + depthC) * direction;
+
+        bluePath.getElements().addAll(
+                new MoveTo(redCircle1.getLayoutX(), 0),
+                new LineTo(redCircle1.getLayoutX(), blueHeight1),
+                new LineTo(redCircle2.getLayoutX(), blueHeight2),
+                new LineTo(redCircle3.getLayoutX(), blueHeight3),
+                new LineTo(redCircle3.getLayoutX(), 0)
+        );
+        Circle blueCircle1 = circles.get(3);
+        Circle blueCircle2 = circles.get(4);
+        Circle blueCircle3 = circles.get(5);
+        blueCircle1.setFill(Color.DARKBLUE);
+        blueCircle2.setFill(Color.DARKBLUE);
+        blueCircle3.setFill(Color.DARKBLUE);
+        blueCircle1.setStroke(Color.BLUE);
+        blueCircle2.setStroke(Color.BLUE);
+        blueCircle3.setStroke(Color.BLUE);
+        bluePath.setStroke(Color.BLUE);
+        bluePath.setFill(Color.rgb(255, 33, 81, 0.3));//just flip the value of blue with red
+
+        blueCircle1.setLayoutX(redCircle1.getLayoutX());
+        blueCircle1.setLayoutY(blueHeight1);
+        blueCircle2.setLayoutX(redCircle2.getLayoutX());
+        blueCircle2.setLayoutY(blueHeight2);
+        blueCircle3.setLayoutX(redCircle3.getLayoutX());
+        blueCircle3.setLayoutY(blueHeight3);
+        pane.getChildren().clear();// to fix the overlay issue
+        pane.getChildren().addAll(bluePath, redPath, blueCircle1, blueCircle2, blueCircle3, redCircle1, redCircle2, redCircle3);
+
+    }
+
+    public static final ChangeListener<String> marginListener = (ObservableValue<? extends String> ov, String oldValue, String newValue) -> {
+        TextInputControl textField = (TextInputControl) ((StringProperty) ov).getBean();
+        if (newValue.length() == 0) {
+            textField.setText("0");
+        }
+        if (!newValue.matches("^[-+]?\\d{0,1}")) {
+            textField.setText(oldValue);
+        }
+    };
+
     //to be moved to Listeners class
     public static ChangeListener<Number> boxBleedingListener = (ov, oldValue, newValue) -> {
         System.out.println("" + ov);
@@ -72,50 +177,49 @@ public abstract class DentalChartUtils {
             if (element == 2 || element == 6 || element == 11) {
                 item.setImplant(Boolean.TRUE);
             }
-            item.setMobility(2);
+            item.setMobility(-3);
             item.setFork1(1);
             item.setBleeding1(0);
             item.setBleeding2(1);
             item.setBleeding3(2);
             item.setPlaque1(0);
-            item.setPlaque2(1);
+            item.setPlaque2(0);
             item.setPlaque3(0);
-            item.setGum(5);
-            item.setMargin1(1);
-            item.setMargin2(2);
-            item.setMargin3(3);
-            item.setDepth1(10);
-            item.setDepth2(11);
-            item.setDepth3(12);
-            item.setDepth4(10);
-            item.setDepth5(11);
-            item.setDepth6(12);
-            item.setMargin4(2);
-            item.setMargin5(1);
-            item.setMargin6(0);
-            item.setPlaque4(1);
+            item.setPlaque4(0);
             item.setPlaque5(0);
-            item.setPlaque6(1);
+            item.setPlaque6(0);
+            item.setGum(58.0);
+            item.setMargin1("0");
+            item.setMargin2("0");
+            item.setMargin3("0");
+            item.setMargin4("0");
+            item.setMargin5("0");
+            item.setMargin6("0");
+            item.setDepth1("0");
+            item.setDepth2("0");
+            item.setDepth3("0");
+            item.setDepth4("0");
+            item.setDepth5("0");
+            item.setDepth6("0");
             item.setBleeding4(0);
             item.setBleeding5(1);
             item.setBleeding6(2);
             item.setFork2(2);
             item.setFork3(3);
             item.setNote("no");
-            item.setNerve1(Boolean.TRUE);
-            item.setNerve2(Boolean.TRUE);
-            item.setNerve3(Boolean.FALSE);
+            item.setSelectedCircle(1);
             items.put(element, item);
         });
         return items;
 
     }
 
-    public static void styleRedCircles(Circle circle, boolean value) {
-        if (circle.getStyleClass().size() > 1)
-            circle.getStyleClass().remove(1);
-        circle.getStyleClass().add(value ? "circle-nerve-clicked" : "circle-nerve-unclicked");
-
+    public static void styleRedCircles(int index, List<Circle> circles) {
+        circles.forEach(circle -> {
+            if (circle.getStyleClass().size() > 1)
+                circle.getStyleClass().remove(1);
+            circle.getStyleClass().add(circles.indexOf(circle) == index ? "circle-nerve-clicked" : "circle-nerve-unclicked");
+        });
     }
 
     public static void styleForkButton(WeatherIconView icon, int value) {
@@ -210,6 +314,30 @@ public abstract class DentalChartUtils {
 //        svg.setScaleX(scale);
 //        svg.setScaleY(scale);
 //        button.setGraphic(svg);
+    }
+
+    public static int calculateDentalChartPlaque(DentalChart dentalChart) {
+        AtomicInteger result = new AtomicInteger(0);
+        dentalChart.getSuperiorMap().forEach((k, v) -> {
+            result.getAndAdd(v.getTotalPlaque());
+        });
+        dentalChart.getInferiorMap().forEach((k, v) -> {
+            result.getAndAdd(v.getTotalPlaque());
+        });
+        return result.get();
+    }
+
+    public static int calculateDentalChartMeanProbingDepth(DentalChart dentalChart) {
+
+        AtomicInteger result = new AtomicInteger(0);
+        dentalChart.getSuperiorMap().forEach((k, v) -> {
+            result.getAndAdd(v.getMeanProbingDepth());
+        });
+        dentalChart.getInferiorMap().forEach((k, v) -> {
+            result.getAndAdd(v.getMeanProbingDepth());
+        });
+        System.out.println("res : "+result);
+        return result.get();
     }
 
 }

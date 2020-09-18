@@ -8,8 +8,6 @@ import com.jfoenix.validation.base.ValidatorBase;
 import static com.jfoenix.validation.base.ValidatorBase.PSEUDO_CLASS_ERROR;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
@@ -24,7 +22,7 @@ public class TextLengthValidator extends ValidatorBase {
 
     private final int from;
     private final int to;
-    private String message="input is from %d to %d characters";
+    private static String MESSAGE = "input is from %d to %d characters";
     ;
     private Tooltip tooltip = null;
     private final Tooltip errorTooltip = new Tooltip();
@@ -34,10 +32,11 @@ public class TextLengthValidator extends ValidatorBase {
         super.setSrcControl(src);
         this.from = from;
         this.to = to;
-        src.textProperty().addListener((ov,oldString,newString)->{
-           validate();
-            if(newString.length()>to)
-               src.setText(oldString);
+        src.textProperty().addListener((ov, oldString, newString) -> {
+            validate();
+            if (!src.getText().matches("[1-5](\\.[0-9]{1,2}){0,1}|9(\\.0{1,2}){0,1}")) {
+                src.setText(oldString);
+            }
         });
 
     }
@@ -53,13 +52,12 @@ public class TextLengthValidator extends ValidatorBase {
     public void evalTextInputField() {
         TextInputControl textField = (TextInputControl) srcControl.get();
         if (textField.getText().length() < from || textField.getText().length() > to) {
-            ((Label) errorLabelList.get(0)).setText(String.format(message, from, to));
-            errorTooltip.setText(String.format(message, from, to));
+            ((Label) errorLabelList.get(0)).setText(String.format(MESSAGE, from, to));
+            errorTooltip.setText(String.format(MESSAGE, from, to));
             hasErrors.set(true);
         } else
             hasErrors.set(false);
-        
-        
+
     }
 
     @Override
@@ -89,13 +87,13 @@ public class TextLengthValidator extends ValidatorBase {
 
     //override these methods and remove any usages for them in the child-extended class
     @Override
-    public void setMessage(String message) {
-        this.message=message;
+    public void setMessage(String MESSAGE) {
+        TextLengthValidator.MESSAGE = MESSAGE;
     }
 
     @Override
     public String getMessage() {
-        return String.format(message, from, to);
+        return String.format(MESSAGE, from, to);
     }
 
 }

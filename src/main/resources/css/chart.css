@@ -8,21 +8,12 @@
     -fx-fifth:lightyellow;
     -fx-sixth:#339900;
     -fx-yellow: #f8ff65;
-
 }
-
-
 /*for the dental chart
 */
-Circle.circle-nerve1, Circle.circle-nerve2, Circle.circle-nerve3{
-    -fx-fill:firebrick;
-    -fx-scale-x:0.5;
-    -fx-scale-y:0.5;
-    -fx-stroke: crimson;
 
-}
 
-Circle.circle-nerve1:hover,Circle.circle-nerve2:hover,Circle.circle-nerve3:hover{
+Circle.red-circle1:hover,Circle.red-circle2:hover,Circle.red-circle3:hover,Circle.blue-circle1:hover,Circle.blue-circle2:hover,Circle.blue-circle3:hover{
     /*
 -fx-effect: dropshadow(blurType, color, radius, spread, offsetX, offsetY)
     you could use rgb(,,) or popularColorString 
@@ -31,16 +22,15 @@ Circle.circle-nerve1:hover,Circle.circle-nerve2:hover,Circle.circle-nerve3:hover
 }
 .circle-nerve-clicked{
     -fx-fill:white;
-    -fx-scale-x:1;
-    -fx-scale-y:1;
-    -fx-stroke:crimson;
-    -fx-stroke-width:2;
+    -fx-stroke:black;
+    -fx-stroke-width:1;
+    -fx-scale-x:1.5;
+    -fx-scale-y:1.5;
 }
 .circle-nerve-unclicked{
-    -fx-fill:firebrick;
-    -fx-scale-x:0.5;
-    -fx-scale-y:0.5;
-    -fx-stroke:crimson;
+    -fx-stroke-width:1;
+    -fx-scale-x:1.25;
+    -fx-scale-y:1.25;
 }
 
 Line.line-nerve{
@@ -120,5 +110,13 @@ GridPane .combo-box .list-view{
     -fx-text-fill:white;
     -fx-max-width:Infinity;
     -fx-max-height:Infinity;
+}
+.text-field{
+    -fx-padding:1;
+    -fx-alignment:center;
+}
+.chart-control-button:hover{
+    -fx-background-color:-fx-second;
+    
 }
 
