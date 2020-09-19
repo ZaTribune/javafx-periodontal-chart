@@ -1,4 +1,4 @@
-# Dental-Chart-JavaFX
+# Periodontal-Chart-JavaFX
 A dental chart application built using JavaFX.
 <p align="center">
   <img src="screenshots/1.jpg" height="250"/>
