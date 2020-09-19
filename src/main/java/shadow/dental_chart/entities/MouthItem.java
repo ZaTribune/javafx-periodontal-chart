@@ -21,7 +21,7 @@ import javafx.beans.value.ChangeListener;
  */
 public class MouthItem {
 
-    public static void connectCircles(MouthItem item, ChangeListener set1Listener) {
+    public static void connectCirclesListeners(MouthItem item, ChangeListener set1Listener) {
         item.margin1Property.addListener(set1Listener);
         item.margin2Property.addListener(set1Listener);
         item.margin3Property.addListener(set1Listener);
@@ -54,12 +54,12 @@ public class MouthItem {
     String margin4;
     String margin5;
     String margin6;
-    String depth1 = "0";
-    String depth2 = "0";
-    String depth3 = "0";
-    String depth4 = "0";
-    String depth5 = "0";
-    String depth6 = "0";
+    String depth1;
+    String depth2;
+    String depth3;
+    String depth4;
+    String depth5;
+    String depth6;
     Integer fork2 = 0;
     Integer fork3 = 0;
     String note;
@@ -71,7 +71,9 @@ public class MouthItem {
     @JsonIgnore
     Integer totalPlaque = 0;
     @JsonIgnore
-    Integer meanProbingDepth = 0;
+    Integer totalProbingDepth = 0;
+        @JsonIgnore
+    Integer totalGingivalMargin = 0;
 
     @JsonIgnore
     final BooleanProperty availableProperty;
@@ -204,10 +206,16 @@ public class MouthItem {
     }
 
     public static void calculateTotalProbingDepth(MouthItem item) {
-        item.setMeanProbingDepth(
+        item.setTotalProbingDepth(
                 Integer.parseInt(item.getDepth1()) + Integer.parseInt(item.getDepth2()) + Integer.parseInt(item.getDepth3())
                 + Integer.parseInt(item.getDepth4()) + Integer.parseInt(item.getDepth5()) + Integer.parseInt(item.getDepth6()));
     }
+   public static void  calculateTotalGingivalMargin(MouthItem item){
+           item.setTotalGingivalMargin(
+                Integer.parseInt(item.getMargin1()) + Integer.parseInt(item.getMargin2()) + Integer.parseInt(item.getMargin3())
+                + Integer.parseInt(item.getMargin4()) + Integer.parseInt(item.getMargin5()) + Integer.parseInt(item.getMargin6()));
+   
+   }
 
     public Boolean getAvailable() {
         return availableProperty.get();
@@ -621,12 +629,20 @@ public class MouthItem {
         this.totalPlaque = totalPlaque;
     }
 
-    public Integer getMeanProbingDepth() {
-        return meanProbingDepth;
+    public Integer getTotalProbingDepth() {
+        return totalProbingDepth;
     }
 
-    public void setMeanProbingDepth(Integer meanProbingDepth) {
-        this.meanProbingDepth = meanProbingDepth;
+    public void setTotalProbingDepth(Integer totalProbingDepth) {
+        this.totalProbingDepth = totalProbingDepth;
+    }
+
+    public Integer getTotalGingivalMargin() {
+        return totalGingivalMargin;
+    }
+
+    public void setTotalGingivalMargin(Integer totalGingivalMargin) {
+        this.totalGingivalMargin = totalGingivalMargin;
     }
 
 }

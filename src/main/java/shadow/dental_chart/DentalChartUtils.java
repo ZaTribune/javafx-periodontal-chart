@@ -30,6 +30,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.util.Pair;
 import shadow.dental_chart.entities.DentalChart;
 import shadow.dental_chart.entities.MouthItem;
 import static shadow.dental_chart.entities.MouthItem.calculateTotalPlaque;
@@ -128,16 +129,6 @@ public abstract class DentalChartUtils {
         pane.getChildren().addAll(bluePath, redPath, blueCircle1, blueCircle2, blueCircle3, redCircle1, redCircle2, redCircle3);
 
     }
-
-    public static final ChangeListener<String> marginListener = (ObservableValue<? extends String> ov, String oldValue, String newValue) -> {
-        TextInputControl textField = (TextInputControl) ((StringProperty) ov).getBean();
-        if (newValue.length() == 0) {
-            textField.setText("0");
-        }
-        if (!newValue.matches("^[-+]?\\d{0,1}")) {
-            textField.setText(oldValue);
-        }
-    };
 
     //to be moved to Listeners class
     public static ChangeListener<Number> boxBleedingListener = (ov, oldValue, newValue) -> {
@@ -327,17 +318,22 @@ public abstract class DentalChartUtils {
         return result.get();
     }
 
-    public static int calculateDentalChartMeanProbingDepth(DentalChart dentalChart) {
-
-        AtomicInteger result = new AtomicInteger(0);
+    public static Pair<Integer,Integer> calculateDentalChartMeanProbingDepth(DentalChart dentalChart) {
+       
+        
+        AtomicInteger result1 = new AtomicInteger(0);
+        AtomicInteger result2=new AtomicInteger(0);
         dentalChart.getSuperiorMap().forEach((k, v) -> {
-            result.getAndAdd(v.getMeanProbingDepth());
+            result1.getAndAdd(v.getTotalProbingDepth());
+            result2.getAndAdd(v.getTotalGingivalMargin());
         });
         dentalChart.getInferiorMap().forEach((k, v) -> {
-            result.getAndAdd(v.getMeanProbingDepth());
+            result1.getAndAdd(v.getTotalProbingDepth());
+            result2.getAndAdd(v.getTotalGingivalMargin());
         });
-        System.out.println("res : "+result);
-        return result.get();
+        System.out.println("res2 : "+result1);
+        System.out.println("res2 :"+result2);
+        return  new Pair<>(result1.get(),result2.get());
     }
 
 }

@@ -44,6 +44,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.util.Pair;
 import shadow.dental_chart.entities.DentalChart;
 import shadow.dental_chart.entities.MouthItem;
 import static shadow.dental_chart.DentalChartUtils.styleRedCircles;
@@ -68,6 +69,7 @@ public class DentalChartController implements Initializable {
     @FXML private GridPane superior, inferior;
     @FXML private Label plaquePercentage;
     @FXML private Label meanProbingDepth;
+    @FXML private Label meanAttachmentLevel;
     private double totalPlaque = 192.0;
     private double totalItems = 32;
 
@@ -100,7 +102,10 @@ public class DentalChartController implements Initializable {
             initializeGridPane(superior, chart.getSuperiorMap());
             initializeGridPane(inferior, chart.getInferiorMap());
             plaquePercentage.setText(String.format("%.2f", (calculateDentalChartPlaque(chart) / totalPlaque * 100)) + "%");
-            meanProbingDepth.setText(String.format("%.2f", (calculateDentalChartMeanProbingDepth(chart) / totalItems)) + "mm");
+            //the KEY represents the value of overall probing depth wheres the VALUE represents the overall value of gingival margin 
+            Pair<Integer, Integer> pair = calculateDentalChartMeanProbingDepth(chart);
+            meanProbingDepth.setText(String.format("%.2f", (pair.getKey() / totalItems)) + "mm");
+            meanAttachmentLevel.setText(String.format("%.2f", ((pair.getKey() + pair.getValue()) / (totalItems * 3))) + "mm");
         });
 
     }
@@ -117,6 +122,12 @@ public class DentalChartController implements Initializable {
         int rowIndex = GridPane.getRowIndex(node);
         int columnIndex = GridPane.getColumnIndex(node);
         MouthItem item = userMap.get(columnIndex);//this will return a MouthItem
+
+        // just once
+        MouthItem.calculateTotalPlaque(item);
+        MouthItem.calculateTotalProbingDepth(item);
+        //MouthItem.calculateTotalGingivalMargin(item);
+
         switch (rowIndex) {
             case 1:// available
                 JFXToggleButton available = (JFXToggleButton) node;
@@ -225,35 +236,55 @@ public class DentalChartController implements Initializable {
                 gumWidth.setValue(item.getGum());
 
                 break;
-            case 8://gingival-margin
+            case 8://gingival-margin-set-1
+                ChangeListener<String> marginListener1 = (ObservableValue<? extends String> ov, String oldValue, String newValue) -> {
+                    TextInputControl textField = (TextInputControl) ((StringProperty) ov).getBean();
+                    if (newValue.length() == 0) {
+                        textField.setText("0");
+                        return;
+                    }
+                    if (newValue.equals("-")) {
+                        return;
+                    }
+                    if (!newValue.matches("^[-+]?\\d{0,3}") || Integer.parseInt(textField.getText()) > 10 || Integer.parseInt(textField.getText()) < - 10) {
+                        textField.setText(oldValue);
+                        return;
+                    }
+                    MouthItem.calculateTotalGingivalMargin(item);
+                    Pair<Integer, Integer> pair = calculateDentalChartMeanProbingDepth(chart);
+                    meanProbingDepth.setText(String.format("%.2f", (pair.getKey() / (totalItems * 3))) + "mm");
+                    meanAttachmentLevel.setText(String.format("%.2f", ((pair.getKey() + pair.getValue()) / (totalItems * 3))) + "mm");
+                };
                 HBox marginBox1 = (HBox) node;
                 TextField margin1 = (TextField) marginBox1.getChildren().get(0);
                 TextField margin2 = (TextField) marginBox1.getChildren().get(1);
                 TextField margin3 = (TextField) marginBox1.getChildren().get(2);
-                margin1.textProperty().addListener(DentalChartUtils.marginListener);
-                margin2.textProperty().addListener(DentalChartUtils.marginListener);
-                margin3.textProperty().addListener(DentalChartUtils.marginListener);
-                margin1.setText(item.getMargin1());
-                margin2.setText(item.getMargin2());
-                margin3.setText(item.getMargin3());
-                item.margin1Property().bindBidirectional(margin1.textProperty());
-                item.margin2Property().bindBidirectional(margin2.textProperty());
-                item.margin3Property().bindBidirectional(margin3.textProperty());
+                margin1.textProperty().bindBidirectional(item.margin1Property());
+                margin2.textProperty().bindBidirectional(item.margin2Property());
+                margin3.textProperty().bindBidirectional(item.margin3Property());
+                margin1.textProperty().addListener(marginListener1);
+                margin2.textProperty().addListener(marginListener1);
+                margin3.textProperty().addListener(marginListener1);
 
                 break;
-            case 9://probing-depth
+            case 9://probing-depth-set-1
                 ChangeListener<String> probingDepthListener1 = (ObservableValue<? extends String> ov, String oldValue, String newValue) -> {
                     TextInputControl textField = (TextInputControl) ((StringProperty) ov).getBean();
                     if (newValue.length() == 0) {
                         textField.setText("0");
-                        return;//to avoid the number format exception
+                        return;
                     }
-                    if (!newValue.matches("^[-+]?\\d{0,2}") || Integer.parseInt(textField.getText()) > 10) {///the whole value not just a single number input 
+                    if (newValue.equals("-")) {
+                        return;
+                    }
+                    if (!newValue.matches("^[-+]?\\d{0,3}") || Integer.parseInt(textField.getText()) > 10 || Integer.parseInt(textField.getText()) < - 10) {
                         textField.setText(oldValue);
                         return;
                     }
                     MouthItem.calculateTotalProbingDepth(item);
-                     meanProbingDepth.setText(String.format("%.2f", (calculateDentalChartMeanProbingDepth(chart) / (totalItems*3) )) + "mm");
+                    Pair<Integer, Integer> pair = calculateDentalChartMeanProbingDepth(chart);
+                    meanProbingDepth.setText(String.format("%.2f", (pair.getKey() / (totalItems * 3))) + "mm");
+                    meanAttachmentLevel.setText(String.format("%.2f", ((pair.getKey() + pair.getValue()) / (totalItems * 3))) + "mm");
 //                    double r=calculateDentalChartMeanProbingDepth(chart)/totalItems*3;
 //                    double e=r*Math.pow(10,2)/Math.pow(10,2)/3;
 //                    meanProbingDepth.setText(e + "mm");
@@ -295,13 +326,15 @@ public class DentalChartController implements Initializable {
 
                     Pane circlesContainer = (Pane) stackPane.lookup(".circles-container");
                     List<Circle> circlesList = Arrays.asList(circle1, circle2, circle3, circle4, circle5, circle6);
-                    ChangeListener set1Listener = new ChangeListener() {
+                    ChangeListener<String> set1Listener = new ChangeListener<>() {
                         @Override
-                        public void changed(ObservableValue ov, Object t, Object t1) {
+                        public void changed(ObservableValue ov, String t, String t1) {
+                            if (t1.isEmpty()||t1.equals("-"))
+                                return;//to avoid Exception in thread "JavaFX Application Thread" java.lang.NumberFormatException: For input string: "-"  or ""
                             drawRedPath(circlesContainer, circlesList, item, direction);
                         }
                     };
-                    MouthItem.connectCircles(item, set1Listener);
+                    MouthItem.connectCirclesListeners(item, set1Listener);
                     drawRedPath(circlesContainer, circlesList, item, direction);
                     styleRedCircles(item.getSelectedCircle(), circlesList);
                     EventHandler<MouseEvent> mcEventHandler = new EventHandler<MouseEvent>() {
@@ -378,15 +411,21 @@ public class DentalChartController implements Initializable {
                 ChangeListener<String> probingDepthListener2 = (ObservableValue<? extends String> ov, String oldValue, String newValue) -> {
                     TextInputControl textField = (TextInputControl) ((StringProperty) ov).getBean();
                     if (newValue.length() == 0) {
-                        textField.setText("0");
-                        return;//to avoid the number format exception
-                    }
-                    if (!newValue.matches("^[-+]?\\d{0,2}") || Integer.parseInt(textField.getText()) > 10) {///the whole value not just a single number input 
-                        textField.setText(oldValue);
+                        textField.setText("0");//to avoid the number format exception
                         return;
                     }
+                    if (newValue.equals("-")) {
+                        return;
+                    }
+                    if (!newValue.matches("^[-+]?\\d{0,3}") || Integer.parseInt(textField.getText()) > 10 || Integer.parseInt(textField.getText()) < - 10) {
+                        textField.setText(oldValue);///the whole value not just a single number input 
+                        return;
+                    }
+
                     MouthItem.calculateTotalProbingDepth(item);
-                    meanProbingDepth.setText(String.format("%.2f", (calculateDentalChartMeanProbingDepth(chart) / (totalItems*3) )) + "mm");
+                    Pair<Integer, Integer> pair = calculateDentalChartMeanProbingDepth(chart);
+                    meanProbingDepth.setText(String.format("%.2f", (pair.getKey() / (totalItems * 3))) + "mm");
+                    meanAttachmentLevel.setText(String.format("%.2f", ((pair.getKey() + pair.getValue()) / (totalItems * 3))) + "mm");
                 };
                 HBox depthBox2 = (HBox) node;
                 TextField depth4 = (TextField) depthBox2.getChildren().get(0);
@@ -399,20 +438,37 @@ public class DentalChartController implements Initializable {
                 depth5.textProperty().addListener(probingDepthListener2);
                 depth6.textProperty().addListener(probingDepthListener2);
                 break;
-            case 14://gingival-margin
+            case 14://gingival-margin-set-2
+                ChangeListener<String> marginListener2 = (ObservableValue<? extends String> ov, String oldValue, String newValue) -> {
+                    TextInputControl textField = (TextInputControl) ((StringProperty) ov).getBean();
+                    System.out.println("" + newValue);
+                    if (newValue.length() == 0) {
+                        textField.setText("0");//to avoid the number format exception
+                        return;
+                    }
+                    if (newValue.equals("-")) {
+                        return;
+                    }
+                    if (!newValue.matches("^[-+]?\\d{0,3}") || Integer.parseInt(textField.getText()) > 10 || Integer.parseInt(textField.getText()) < - 10) {
+                        textField.setText(oldValue);///the whole value not just a single number input 
+                        return;
+                    }
+                    MouthItem.calculateTotalGingivalMargin(item);
+                    Pair<Integer, Integer> pair = calculateDentalChartMeanProbingDepth(chart);
+                    meanProbingDepth.setText(String.format("%.2f", (pair.getKey() / (totalItems * 3))) + "mm");
+                    meanAttachmentLevel.setText(String.format("%.2f", ((pair.getKey() + pair.getValue()) / (totalItems * 3))) + "mm");
+                };
                 HBox marginBox2 = (HBox) node;
                 TextField margin4 = (TextField) marginBox2.getChildren().get(0);
                 TextField margin5 = (TextField) marginBox2.getChildren().get(1);
                 TextField margin6 = (TextField) marginBox2.getChildren().get(2);
-                margin4.textProperty().addListener(DentalChartUtils.marginListener);
-                margin5.textProperty().addListener(DentalChartUtils.marginListener);
-                margin6.textProperty().addListener(DentalChartUtils.marginListener);
-                margin4.setText(item.getMargin4());
-                margin5.setText(item.getMargin5());
-                margin6.setText(item.getMargin6());
-                item.margin4Property().bindBidirectional(margin4.textProperty());
-                item.margin5Property().bindBidirectional(margin5.textProperty());
-                item.margin6Property().bindBidirectional(margin6.textProperty());
+                margin4.textProperty().bindBidirectional(item.margin4Property());
+                margin5.textProperty().bindBidirectional(item.margin5Property());
+                margin6.textProperty().bindBidirectional(item.margin6Property());
+                margin4.textProperty().addListener(marginListener2);
+                margin5.textProperty().addListener(marginListener2);
+                margin6.textProperty().addListener(marginListener2);
+
                 break;
             case 15://plaque 4,5,6
                 HBox boxPlaque2 = (HBox) node;
@@ -517,9 +573,6 @@ public class DentalChartController implements Initializable {
                 break;
 
         }
-        // just once
-        MouthItem.calculateTotalPlaque(item);
-        MouthItem.calculateTotalProbingDepth(item);
     }
 
     void setDisableOtherNodes(int ColumnIndex, GridPane gridPane, boolean disable) {

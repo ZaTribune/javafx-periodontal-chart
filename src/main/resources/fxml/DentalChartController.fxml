@@ -76,7 +76,7 @@
                            </font>
                         </Label>
                         <Label fx:id="meanProbingDepth" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" textFill="WHITE" GridPane.columnIndex="1" />
-                        <Label layoutX="160.0" layoutY="16.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="meanAttachmentLevel" layoutX="160.0" layoutY="16.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label fx:id="plaquePercentage" layoutX="160.0" layoutY="16.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" textFill="WHITE" GridPane.columnIndex="3" />
                         <Label layoutX="386.0" layoutY="16.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                      </children>
