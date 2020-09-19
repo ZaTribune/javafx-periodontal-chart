@@ -24,7 +24,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML(DentalChartController1.class.getSimpleName()), 1024, 768);
+        scene = new Scene(loadFXML(DentalChartController.class.getSimpleName()), 1024, 768);
         stage.setScene(scene);
         stage.show();
     }

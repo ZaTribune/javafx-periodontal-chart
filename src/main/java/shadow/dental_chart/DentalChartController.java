@@ -57,7 +57,7 @@ import static shadow.dental_chart.DentalChartUtils.calculateDentalChartMeanProbi
 import static shadow.dental_chart.DentalChartUtils.calculateDentalBleedingOnProbing;
 import static shadow.dental_chart.DentalChartUtils.drawPath;
 
-public class DentalChartController1 implements Initializable {
+public class DentalChartController implements Initializable {
 
     // item is referred to a single tooth/
     private double scale = 1.0;
