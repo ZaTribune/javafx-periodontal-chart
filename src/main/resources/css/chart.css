@@ -66,7 +66,7 @@ WeatherIconView{
 }
 .card{
     -fx-border-color:-fx-second;
-    -fx-border-width:1;
+    -fx-border-width:2;
 }
 #superior JFXButton:hover , #inferior JFXButton:hover{
     -fx-background-color:-fx-second;

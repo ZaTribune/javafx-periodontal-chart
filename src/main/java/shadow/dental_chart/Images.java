@@ -17,7 +17,7 @@ public interface Images {
     String EXTENSION = ".png";
 
     ///////////
-//    private final String AVAILABLE = "available";
+       final String CLASS_AVAILABLE = "available";
 //    private final String IMPLANT = "implant";
 //    private final String MOBILITY = "mobility";
 //    private final String FORK1 = "fork1";

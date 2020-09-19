@@ -25,7 +25,7 @@
 <?import javafx.scene.text.Font?>
 <?import jfxtras.scene.layout.GridPane?>
 
-<Group stylesheets="@../css/chart.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shadow.dental_chart.DentalChartController">
+<Group fx:id="parent" stylesheets="@../css/chart.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shadow.dental_chart.DentalChartController">
    <children>
           <VBox fx:id="vbox" cache="true" cacheHint="SPEED" fillWidth="false" prefHeight="1680.0" prefWidth="1600.0" style="-fx-background-color: -fx-first;">
               <children>

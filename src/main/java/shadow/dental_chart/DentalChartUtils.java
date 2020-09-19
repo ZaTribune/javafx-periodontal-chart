@@ -187,7 +187,7 @@ public abstract class DentalChartUtils {
             item.setFork2(0);
             item.setFork3(0);
             item.setNote("no");
-            item.setSelectedCircle(1);
+            item.setSelectedCircle(-1);
             items.put(element, item);
         });
         return items;

@@ -9,11 +9,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXProgressBar;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXToggleButton;
 import de.jensd.fx.glyphs.weathericons.WeatherIconView;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -29,7 +33,17 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.print.JobSettings;
+import javafx.print.PageLayout;
+import javafx.print.PageOrientation;
+import javafx.print.Paper;
+import javafx.print.PaperSource;
+import javafx.print.PrintQuality;
+import javafx.print.PrintResolution;
+import javafx.print.Printer;
+import javafx.print.PrinterJob;
 import javafx.scene.Group;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -44,7 +58,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.scene.transform.Scale;
+import javafx.stage.Popup;
+import javafx.stage.Window;
 import javafx.util.Pair;
+import org.controlsfx.control.MaskerPane;
 import shadow.dental_chart.entities.DentalChart;
 import shadow.dental_chart.entities.MouthItem;
 import static shadow.dental_chart.DentalChartUtils.styleRedCircles;
@@ -113,8 +131,8 @@ public class DentalChartController implements Initializable {
             updateBleedingOnProbing(false);
             //in the end
             skipUpdatingGlobalInfo = false;
-            skipUpdatingPlaque=false;
-            skipUpdatingBleedingOnProbing=false;
+            skipUpdatingPlaque = false;
+            skipUpdatingBleedingOnProbing = false;
         });
 
     }
@@ -339,12 +357,12 @@ public class DentalChartController implements Initializable {
                     circle6B.getStyleClass().add("blue-circle3");
                     List<Circle> circlesList1 = Arrays.asList(circle1, circle2, circle3, circle1B, circle2B, circle3B);
                     List<Circle> circlesList2 = Arrays.asList(circle4, circle5, circle6, circle4B, circle5B, circle6B);
-                    ChangeListener<String> set1Listener = ( ov,  t,  t1) -> {
+                    ChangeListener<String> set1Listener = (ov, t, t1) -> {
                         if (t1.isEmpty() || t1.equals("-"))
                             return;//to avoid Exception in thread "JavaFX Application Thread" java.lang.NumberFormatException: For input string: "-"  or ""
                         drawPath(circlesContainer1, circlesList1, item, -1);
                     };
-                    ChangeListener<String> set2Listener = ( ov,  t,  t1) -> {
+                    ChangeListener<String> set2Listener = (ov, t, t1) -> {
                         if (t1.isEmpty() || t1.equals("-"))
                             return;//to avoid Exception in thread "JavaFX Application Thread" java.lang.NumberFormatException: For input string: "-"  or ""
                         drawPath(circlesContainer2, circlesList2, item, 1);
@@ -407,7 +425,7 @@ public class DentalChartController implements Initializable {
                     updatePlaque(skipUpdatingPlaque);
                     update_MPD_MAL(skipUpdatingGlobalInfo);
                     updateBleedingOnProbing(skipUpdatingBleedingOnProbing);
-                    
+
                     pic1.setImage(new Image(resource1.toExternalForm()));
                     pic2.setImage(new Image(resource2.toExternalForm()));
                 };
@@ -648,7 +666,67 @@ public class DentalChartController implements Initializable {
     }
 
     public void print(ActionEvent event) {
+        PrinterJob job = PrinterJob.createPrinterJob();
+        Node header = vbox.getChildren().get(0);
+        Label label = new Label("Patient name :Muhammad Ali Arafah - " + DateTimeFormatter.ofPattern("hh:mm - dd/MM/yyyy").format(LocalDateTime.now()));
+        vbox.getChildren().add(label);
+        label.setStyle("-fx-text-fill:white;-fx-min-height:50;-fx-font-weight: bold;-fx-font-size:15;-fx-padding:0 0 0 20;");
+        hideForPrint(superior, false);
+        hideForPrint(inferior, false);
+        Popup popup = new Popup();
+        popup.getContent().add(new MaskerPane());
+        popup.setAutoHide(false);
+        
+        Scale scale = new Scale();
+        if (job != null && job.showPrintDialog(vbox.getScene().getWindow())) {
+            popup.show(vbox.getScene().getWindow());
+            Printer printer = job.getPrinter();
+            PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.LANDSCAPE, Printer.MarginType.HARDWARE_MINIMUM);
+            JobSettings settings = job.getJobSettings();
+            settings.setPrintQuality(PrintQuality.HIGH);
+            header.setVisible(false);
+            header.setManaged(false);
 
+            double width = vbox.getWidth();
+            double height = vbox.getHeight();
+
+            PrintResolution resolution = job.getJobSettings().getPrintResolution();
+
+            width /= resolution.getFeedResolution();
+
+            height /= resolution.getCrossFeedResolution();
+
+            double scaleX = pageLayout.getPrintableWidth() / width / 600;
+            double scaleY = pageLayout.getPrintableHeight() / height / 600;
+
+            scale = new Scale(scaleX, scaleY);
+
+            vbox.getTransforms().add(scale);
+
+            boolean success = job.printPage(pageLayout, vbox);
+            if (success) {
+                job.endJob();
+                //called even if cancelled the "Save As" dialog
+            }
+        }
+        vbox.getTransforms().remove(scale);
+        vbox.getChildren().remove(label);
+        header.setManaged(true);
+        header.setVisible(true);
+        hideForPrint(superior, true);
+        hideForPrint(inferior, true);
+        popup.hide();
+    }
+
+    public void hideForPrint(GridPane gridPane, boolean hide) {
+        gridPane.getChildren().stream().forEach(child -> {
+            if (!(child instanceof Label)) {
+                int row = GridPane.getRowIndex(child);
+                if (row == 1 || row == 2 || row == 4 || row == 15) {
+                    child.setVisible(hide);
+                }
+            }
+        });
     }
 
     public void infoForCategory(MouseEvent event) {
@@ -667,8 +745,6 @@ public class DentalChartController implements Initializable {
             Pair<Integer, Integer> pair = calculateDentalChartMeanProbingDepth(chart);
             meanProbingDepth.setText(String.format("%.2f", (pair.getKey() / (currentItems * 6))) + " mm");
             meanAttachmentLevel.setText(String.format("%.2f", ((pair.getKey() + pair.getValue()) / (currentItems * 6))) + " mm");
-
-            //Math.round((totalSangrado/(currentItems*6)*100);
         }
     }
 
