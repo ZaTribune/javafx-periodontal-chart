@@ -4,7 +4,6 @@
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXToggleButton?>
-<?import de.jensd.fx.glyphs.icons525.Icons525View?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import de.jensd.fx.glyphs.weathericons.WeatherIconView?>
 <?import javafx.geometry.Insets?>
@@ -17,7 +16,6 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -34,18 +32,18 @@
             <HBox maxWidth="1.7976931348623157E308" prefHeight="100.0">
                <children>
                               <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#zoomIn" styleClass="chart-control-button">
-                                  <graphic>
-                                      <Icons525View fill="#ffffff" glyphName="ZOOM_IN" size="20" />
-                                  </graphic>
+                     <graphic>
+                        <MaterialDesignIconView fill="WHITE" glyphName="MAGNIFY_PLUS" size="20" />
+                     </graphic>
                               </JFXButton>
                               <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#zoomOut" styleClass="chart-control-button">
-                                  <graphic>
-                                      <Icons525View fill="#ffffff" glyphName="ZOOM_OUT" size="20" />
-                                  </graphic>
+                     <graphic>
+                        <MaterialDesignIconView fill="WHITE" glyphName="MAGNIFY_MINUS" size="20" />
+                     </graphic>
                               </JFXButton>
                   <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="66.0" layoutY="10.0" onAction="#print" styleClass="chart-control-button">
                      <graphic>
-                        <Icons525View fill="#ffffff" glyphName="PRINTER" size="20" />
+                        <MaterialDesignIconView fill="WHITE" glyphName="PRINTER" size="20" />
                      </graphic>
                   </JFXButton>
                </children>
