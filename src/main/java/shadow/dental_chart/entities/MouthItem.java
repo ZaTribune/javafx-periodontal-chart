@@ -21,13 +21,21 @@ import javafx.beans.value.ChangeListener;
  */
 public class MouthItem {
 
-    public static void connectCirclesListeners(MouthItem item, ChangeListener set1Listener) {
+    public static void connectSet1CirclesListeners(MouthItem item, ChangeListener set1Listener) {
         item.margin1Property.addListener(set1Listener);
         item.margin2Property.addListener(set1Listener);
         item.margin3Property.addListener(set1Listener);
         item.depth1Property.addListener(set1Listener);
         item.depth2Property.addListener(set1Listener);
         item.depth3Property.addListener(set1Listener);
+    }
+        public static void connectSet2CirclesListeners(MouthItem item, ChangeListener set1Listener) {
+        item.margin4Property.addListener(set1Listener);
+        item.margin5Property.addListener(set1Listener);
+        item.margin6Property.addListener(set1Listener);
+        item.depth4Property.addListener(set1Listener);
+        item.depth4Property.addListener(set1Listener);
+        item.depth6Property.addListener(set1Listener);
 
     }
 
@@ -72,8 +80,10 @@ public class MouthItem {
     Integer totalPlaque = 0;
     @JsonIgnore
     Integer totalProbingDepth = 0;
-        @JsonIgnore
+    @JsonIgnore
     Integer totalGingivalMargin = 0;
+    @JsonIgnore
+    Integer totalBleedingOnProbing = 0;
 
     @JsonIgnore
     final BooleanProperty availableProperty;
@@ -173,7 +183,7 @@ public class MouthItem {
         item.setFork3(0);
     }
 
-    public static void resetBleedingAndPlaque(MouthItem item) {
+    public static void resetValues(MouthItem item) {
         item.setBleeding1(0);
         item.setBleeding2(0);
         item.setBleeding3(0);
@@ -198,7 +208,10 @@ public class MouthItem {
         item.setMargin4("0");
         item.setMargin5("0");
         item.setMargin6("0");
-
+        item.setTotalPlaque(0);
+        item.setTotalGingivalMargin(0);
+        item.setTotalProbingDepth(0);
+        item.setTotalBleedingOnProbing(0);
     }
 
     public static void calculateTotalPlaque(MouthItem item) {
@@ -210,12 +223,25 @@ public class MouthItem {
                 Integer.parseInt(item.getDepth1()) + Integer.parseInt(item.getDepth2()) + Integer.parseInt(item.getDepth3())
                 + Integer.parseInt(item.getDepth4()) + Integer.parseInt(item.getDepth5()) + Integer.parseInt(item.getDepth6()));
     }
-   public static void  calculateTotalGingivalMargin(MouthItem item){
-           item.setTotalGingivalMargin(
+
+    public static void calculateTotalGingivalMargin(MouthItem item) {
+        item.setTotalGingivalMargin(
                 Integer.parseInt(item.getMargin1()) + Integer.parseInt(item.getMargin2()) + Integer.parseInt(item.getMargin3())
                 + Integer.parseInt(item.getMargin4()) + Integer.parseInt(item.getMargin5()) + Integer.parseInt(item.getMargin6()));
-   
-   }
+
+    }
+
+    public static void calculateTotalBleedingOnProbing(MouthItem item) {
+        item.setTotalBleedingOnProbing(
+                Boolean.compare(item.getBleeding1() == 1 || item.getBleeding1() == 2, false)
+                + Boolean.compare(item.getBleeding2() == 1 || item.getBleeding2() == 2, false)
+                + Boolean.compare(item.getBleeding3() == 1 || item.getBleeding3() == 2, false)
+                + Boolean.compare(item.getBleeding4() == 1 || item.getBleeding4() == 2, false)
+                + Boolean.compare(item.getBleeding5() == 1 || item.getBleeding5() == 2, false)
+                + Boolean.compare(item.getBleeding6() == 1 || item.getBleeding6() == 2, false)
+        );
+
+    }
 
     public Boolean getAvailable() {
         return availableProperty.get();
@@ -643,6 +669,14 @@ public class MouthItem {
 
     public void setTotalGingivalMargin(Integer totalGingivalMargin) {
         this.totalGingivalMargin = totalGingivalMargin;
+    }
+
+    public Integer getTotalBleedingOnProbing() {
+        return totalBleedingOnProbing;
+    }
+
+    public void setTotalBleedingOnProbing(Integer totalBleedingOnProbing) {
+        this.totalBleedingOnProbing = totalBleedingOnProbing;
     }
 
 }

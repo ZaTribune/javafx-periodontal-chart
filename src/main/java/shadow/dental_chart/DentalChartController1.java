@@ -52,11 +52,12 @@ import static shadow.dental_chart.DentalChartUtils.drawForks;
 import static shadow.dental_chart.DentalChartUtils.styleForkButton;
 import static shadow.dental_chart.DentalChartUtils.styleBleedingSVG;
 import static shadow.dental_chart.DentalChartUtils.stylePlaqueSVG;
-import static shadow.dental_chart.DentalChartUtils.drawRedPath;
 import static shadow.dental_chart.DentalChartUtils.calculateDentalChartPlaque;
 import static shadow.dental_chart.DentalChartUtils.calculateDentalChartMeanProbingDepth;
+import static shadow.dental_chart.DentalChartUtils.calculateDentalBleedingOnProbing;
+import static shadow.dental_chart.DentalChartUtils.drawPath;
 
-public class DentalChartController implements Initializable {
+public class DentalChartController1 implements Initializable {
 
     // item is referred to a single tooth/
     private double scale = 1.0;
@@ -70,8 +71,12 @@ public class DentalChartController implements Initializable {
     @FXML private Label plaquePercentage;
     @FXML private Label meanProbingDepth;
     @FXML private Label meanAttachmentLevel;
-    private double totalPlaque = 192.0;
-    private double totalItems = 32;
+    @FXML private Label bleedingOnProbing;
+    //initially -> as it'll be calculated based on the availability of MouthItem
+    private double currentItems = 0;
+    private boolean skipUpdatingGlobalInfo = true;
+    private boolean skipUpdatingBleedingOnProbing = true;
+    private boolean skipUpdatingPlaque = true;
 
     private static final List<Integer> fork_1_Eligable = Arrays.asList(1, 2, 3, 15, 16, 17);
     private static final List<Integer> fork_2_3_Eligable = Arrays.asList(1, 2, 3, 5, 13, 15, 16, 17);
@@ -101,11 +106,15 @@ public class DentalChartController implements Initializable {
         Platform.runLater(() -> {
             initializeGridPane(superior, chart.getSuperiorMap());
             initializeGridPane(inferior, chart.getInferiorMap());
-            plaquePercentage.setText(String.format("%.2f", (calculateDentalChartPlaque(chart) / totalPlaque * 100)) + "%");
+
             //the KEY represents the value of overall probing depth wheres the VALUE represents the overall value of gingival margin 
-            Pair<Integer, Integer> pair = calculateDentalChartMeanProbingDepth(chart);
-            meanProbingDepth.setText(String.format("%.2f", (pair.getKey() / totalItems)) + "mm");
-            meanAttachmentLevel.setText(String.format("%.2f", ((pair.getKey() + pair.getValue()) / (totalItems * 3))) + "mm");
+            updatePlaque(false);
+            update_MPD_MAL(false);
+            updateBleedingOnProbing(false);
+            //in the end
+            skipUpdatingGlobalInfo = false;
+            skipUpdatingPlaque=false;
+            skipUpdatingBleedingOnProbing=false;
         });
 
     }
@@ -123,10 +132,11 @@ public class DentalChartController implements Initializable {
         int columnIndex = GridPane.getColumnIndex(node);
         MouthItem item = userMap.get(columnIndex);//this will return a MouthItem
 
-        // just once
+        // just once for each item initially , later it will be based on specific field changes
         MouthItem.calculateTotalPlaque(item);
         MouthItem.calculateTotalProbingDepth(item);
-        //MouthItem.calculateTotalGingivalMargin(item);
+        MouthItem.calculateTotalGingivalMargin(item);
+        MouthItem.calculateTotalBleedingOnProbing(item);
 
         switch (rowIndex) {
             case 1:// available
@@ -190,6 +200,9 @@ public class DentalChartController implements Initializable {
                         item.setBleeding3(item.getBleeding3() + 1);
                         styleBleedingSVG(bleeding3, item.getBleeding3());
                     }
+                    MouthItem.calculateTotalBleedingOnProbing(item);
+                    updateBleedingOnProbing(false);
+
                 };
                 bleeding1.setOnMouseClicked(mouseHandlerBleeding1);
                 bleeding2.setOnMouseClicked(mouseHandlerBleeding1);
@@ -219,7 +232,7 @@ public class DentalChartController implements Initializable {
                         stylePlaqueSVG(plaque3, item.getPlaque3());
                     }
                     MouthItem.calculateTotalPlaque(item);
-                    plaquePercentage.setText(String.format("%.2f", (calculateDentalChartPlaque(chart) / totalPlaque * 100)) + "%");
+                    updatePlaque(false);
                 };
                 plaque1.setOnMouseClicked(mouseHandlerPlaque1);
                 plaque2.setOnMouseClicked(mouseHandlerPlaque1);
@@ -251,9 +264,7 @@ public class DentalChartController implements Initializable {
                         return;
                     }
                     MouthItem.calculateTotalGingivalMargin(item);
-                    Pair<Integer, Integer> pair = calculateDentalChartMeanProbingDepth(chart);
-                    meanProbingDepth.setText(String.format("%.2f", (pair.getKey() / (totalItems * 3))) + "mm");
-                    meanAttachmentLevel.setText(String.format("%.2f", ((pair.getKey() + pair.getValue()) / (totalItems * 3))) + "mm");
+                    update_MPD_MAL(false);
                 };
                 HBox marginBox1 = (HBox) node;
                 TextField margin1 = (TextField) marginBox1.getChildren().get(0);
@@ -274,20 +285,14 @@ public class DentalChartController implements Initializable {
                         textField.setText("0");
                         return;
                     }
-                    if (newValue.equals("-")) {
+                    if (newValue.equals("-"))
                         return;
-                    }
                     if (!newValue.matches("^[-+]?\\d{0,3}") || Integer.parseInt(textField.getText()) > 10 || Integer.parseInt(textField.getText()) < - 10) {
                         textField.setText(oldValue);
                         return;
                     }
                     MouthItem.calculateTotalProbingDepth(item);
-                    Pair<Integer, Integer> pair = calculateDentalChartMeanProbingDepth(chart);
-                    meanProbingDepth.setText(String.format("%.2f", (pair.getKey() / (totalItems * 3))) + "mm");
-                    meanAttachmentLevel.setText(String.format("%.2f", ((pair.getKey() + pair.getValue()) / (totalItems * 3))) + "mm");
-//                    double r=calculateDentalChartMeanProbingDepth(chart)/totalItems*3;
-//                    double e=r*Math.pow(10,2)/Math.pow(10,2)/3;
-//                    meanProbingDepth.setText(e + "mm");
+                    update_MPD_MAL(false);
                 };
                 HBox depthBox1 = (HBox) node;
                 TextField depth1 = (TextField) depthBox1.getChildren().get(0);
@@ -301,100 +306,142 @@ public class DentalChartController implements Initializable {
                 depth3.textProperty().addListener(probingDepthListener1);
                 break;
             case 10:
-            case 12:
-
                 //using extra properties for no need will cause a memory leak ... the listener will stop after few times
                 //BooleanProperty crossPicProperty = new SimpleBooleanProperty(item.getAvailable());
                 //BooleanProperty implantPicProperty = new SimpleBooleanProperty(item.getImplant());
                 // crossPicProperty.bind(item.availableProperty());
                 //implantPicProperty.bind(item.implantProperty());
                 //PLUS+ don't use anonymous listeners here cause they also will be garbage collected
-                StackPane stackPane = (StackPane) node;
-                if (stackPane.getChildren().size() > 1) {
-                    int direction = (rowIndex == 10 ? -1 : 1);//to specify the direction for drawing paths & circles
+                VBox vbox = (VBox) node;
+                if (vbox.getChildren().size() > 1) {
                     //some stackpanes contain only an ImageView like up_b and down_
                     //here We'll use already drawen red circles to adjust rendering 
-                    Circle circle1 = (Circle) stackPane.lookup(".red-circle1");
-                    Circle circle2 = (Circle) stackPane.lookup(".red-circle2");
-                    Circle circle3 = (Circle) stackPane.lookup(".red-circle3");
-                    Circle circle4 = new Circle(2);
-                    circle4.getStyleClass().add("blue-circle1");
-                    Circle circle5 = new Circle(2);
-                    circle5.getStyleClass().add("blue-circle2");
-                    Circle circle6 = new Circle(2);
-                    circle6.getStyleClass().add("blue-circle3");
+                    Pane circlesContainer1 = (Pane) vbox.lookup(".circles-container1");
+                    Pane circlesContainer2 = (Pane) vbox.lookup(".circles-container2");
 
-                    Pane circlesContainer = (Pane) stackPane.lookup(".circles-container");
-                    List<Circle> circlesList = Arrays.asList(circle1, circle2, circle3, circle4, circle5, circle6);
-                    ChangeListener<String> set1Listener = new ChangeListener<>() {
-                        @Override
-                        public void changed(ObservableValue ov, String t, String t1) {
-                            if (t1.isEmpty()||t1.equals("-"))
-                                return;//to avoid Exception in thread "JavaFX Application Thread" java.lang.NumberFormatException: For input string: "-"  or ""
-                            drawRedPath(circlesContainer, circlesList, item, direction);
-                        }
+                    Circle circle1 = (Circle) circlesContainer1.lookup(".red-circle1");
+                    Circle circle2 = (Circle) circlesContainer1.lookup(".red-circle2");
+                    Circle circle3 = (Circle) circlesContainer1.lookup(".red-circle3");
+                    Circle circle4 = (Circle) circlesContainer2.lookup(".red-circle1");
+                    Circle circle5 = (Circle) circlesContainer2.lookup(".red-circle2");
+                    Circle circle6 = (Circle) circlesContainer2.lookup(".red-circle3");
+                    Circle circle1B = new Circle(2);
+                    circle1B.getStyleClass().add("blue-circle1");
+                    Circle circle2B = new Circle(2);
+                    circle2B.getStyleClass().add("blue-circle2");
+                    Circle circle3B = new Circle(2);
+                    circle3B.getStyleClass().add("blue-circle3");
+                    Circle circle4B = new Circle(2);
+                    circle4B.getStyleClass().add("blue-circle1");
+                    Circle circle5B = new Circle(2);
+                    circle5B.getStyleClass().add("blue-circle2");
+                    Circle circle6B = new Circle(2);
+                    circle6B.getStyleClass().add("blue-circle3");
+                    List<Circle> circlesList1 = Arrays.asList(circle1, circle2, circle3, circle1B, circle2B, circle3B);
+                    List<Circle> circlesList2 = Arrays.asList(circle4, circle5, circle6, circle4B, circle5B, circle6B);
+                    ChangeListener<String> set1Listener = ( ov,  t,  t1) -> {
+                        if (t1.isEmpty() || t1.equals("-"))
+                            return;//to avoid Exception in thread "JavaFX Application Thread" java.lang.NumberFormatException: For input string: "-"  or ""
+                        drawPath(circlesContainer1, circlesList1, item, -1);
                     };
-                    MouthItem.connectCirclesListeners(item, set1Listener);
-                    drawRedPath(circlesContainer, circlesList, item, direction);
-                    styleRedCircles(item.getSelectedCircle(), circlesList);
-                    EventHandler<MouseEvent> mcEventHandler = new EventHandler<MouseEvent>() {
-                        @Override
-                        public void handle(MouseEvent t) {
-                            Circle circle = (Circle) t.getSource();
-                            //fill:white -> clicked
-                            //fill:firebrick -> unclicked
-                            if (circle.getStyleClass().contains("circle-nerve-clicked")) {
-                                item.setSelectedCircle(-1);
-                                item.setSelectedCircle(-1);
-                            } else
-                                item.setSelectedCircle(circlesList.indexOf(circle));
-                            styleRedCircles(item.getSelectedCircle(), circlesList);
-                        }
+                    ChangeListener<String> set2Listener = ( ov,  t,  t1) -> {
+                        if (t1.isEmpty() || t1.equals("-"))
+                            return;//to avoid Exception in thread "JavaFX Application Thread" java.lang.NumberFormatException: For input string: "-"  or ""
+                        drawPath(circlesContainer2, circlesList2, item, 1);
                     };
-                    circlesList.forEach(circle -> circle.setOnMouseClicked(mcEventHandler));
+                    MouthItem.connectSet1CirclesListeners(item, set1Listener);
+                    MouthItem.connectSet2CirclesListeners(item, set2Listener);
+                    drawPath(circlesContainer1, circlesList1, item, -1);
+                    drawPath(circlesContainer2, circlesList2, item, 1);
+                    styleRedCircles(item.getSelectedCircle(), circlesList1);
+                    styleRedCircles(item.getSelectedCircle(), circlesList2);
+                    EventHandler<MouseEvent> mcEventHandler1 = (MouseEvent t) -> {
+                        Circle circle = (Circle) t.getSource();
+                        //fill:white -> clicked
+                        //fill:firebrick -> unclicked
+                        if (circle.getStyleClass().contains("circle-nerve-clicked")) {
+                            item.setSelectedCircle(-1);
+                            item.setSelectedCircle(-1);
+                        } else
+                            item.setSelectedCircle(circlesList1.indexOf(circle));
+                        styleRedCircles(item.getSelectedCircle(), circlesList1);
+                    };
+                    EventHandler<MouseEvent> mcEventHandler2 = (MouseEvent t) -> {
+                        Circle circle = (Circle) t.getSource();
+                        if (circle.getStyleClass().contains("circle-nerve-clicked")) {
+                            item.setSelectedCircle(-1);
+                            item.setSelectedCircle(-1);
+                        } else
+                            item.setSelectedCircle(circlesList1.indexOf(circle));
+                        styleRedCircles(item.getSelectedCircle(), circlesList2);
+                    };
+
+                    circlesList1.forEach(circle -> circle.setOnMouseClicked(mcEventHandler1));
+                    circlesList2.forEach(circle -> circle.setOnMouseClicked(mcEventHandler2));
                 }
+                StackPane containerUpPic = (StackPane) vbox.getChildren().get(0);
+                StackPane containerDownPic = (StackPane) vbox.getChildren().get(2);
 
-                ImageView pic = (ImageView) stackPane.getChildren().get(0);
+                ImageView pic1 = (ImageView) containerUpPic.getChildren().get(0);
+                ImageView pic2 = (ImageView) containerDownPic.getChildren().get(0);
                 String upOrDown = gridPane.getId().equals(superior.getId()) ? Images.UP : Images.DOWN;// It was superior.getId() and it took me hours to figure out the error
-                String pic1OrPic2 = rowIndex == 10 ? Images.PRIMARY : Images.SECONDARY;
                 ChangeListener<Boolean> avilableListener = (ov, oldValue, newValue) -> {
-                    URL resource;
+                    currentItems++;
+                    URL resource1;
+                    URL resource2;
                     if (!newValue) {
                         MouthItem.resetForks(item);
-                        MouthItem.resetBleedingAndPlaque(item);
+                        MouthItem.resetValues(item);
                         item.setImplant(false);
-                        resource = Images.class.getResource(Images.FOLDER + Images.CROSS + upOrDown + columnIndex + pic1OrPic2 + Images.EXTENSION);
+                        resource1 = Images.class.getResource(Images.FOLDER + Images.CROSS + upOrDown + columnIndex + Images.PRIMARY + Images.EXTENSION);
+                        resource2 = Images.class.getResource(Images.FOLDER + Images.CROSS + upOrDown + columnIndex + Images.SECONDARY + Images.EXTENSION);
+                        currentItems--;
                     } else if (item.getImplant()) {
                         MouthItem.resetForks(item);
-                        resource = Images.class.getResource(Images.FOLDER + Images.IMPLANT + upOrDown + columnIndex + pic1OrPic2 + Images.EXTENSION);
-                    } else
-                        resource = Images.class.getResource(Images.FOLDER + upOrDown + columnIndex + pic1OrPic2 + Images.EXTENSION);
-                    pic.setImage(new Image(resource.toExternalForm()));
+                        resource1 = Images.class.getResource(Images.FOLDER + Images.IMPLANT + upOrDown + columnIndex + Images.PRIMARY + Images.EXTENSION);
+                        resource2 = Images.class.getResource(Images.FOLDER + Images.IMPLANT + upOrDown + columnIndex + Images.SECONDARY + Images.EXTENSION);
+                    } else {
+                        resource1 = Images.class.getResource(Images.FOLDER + upOrDown + columnIndex + Images.PRIMARY + Images.EXTENSION);
+                        resource2 = Images.class.getResource(Images.FOLDER + upOrDown + columnIndex + Images.SECONDARY + Images.EXTENSION);
+                    }
+
+                    System.out.println("" + currentItems + "\t" + columnIndex);
+                    updatePlaque(skipUpdatingPlaque);
+                    update_MPD_MAL(skipUpdatingGlobalInfo);
+                    updateBleedingOnProbing(skipUpdatingBleedingOnProbing);
+                    
+                    pic1.setImage(new Image(resource1.toExternalForm()));
+                    pic2.setImage(new Image(resource2.toExternalForm()));
                 };
 
                 ChangeListener<Boolean> implantListener = (ov, oldValue, newValue) -> {
-                    URL resource;
+                    URL resource1;
+                    URL resource2;
                     if (newValue) {
                         MouthItem.resetForks(item);
-                        resource = Images.class.getResource(Images.FOLDER + Images.IMPLANT + upOrDown + columnIndex + pic1OrPic2 + Images.EXTENSION);
-                    } else
-                        resource = Images.class.getResource(Images.FOLDER + upOrDown + columnIndex + pic1OrPic2 + Images.EXTENSION);
-                    pic.setImage(new Image(resource.toExternalForm()));
+                        resource1 = Images.class.getResource(Images.FOLDER + Images.IMPLANT + upOrDown + columnIndex + Images.PRIMARY + Images.EXTENSION);
+                        resource2 = Images.class.getResource(Images.FOLDER + Images.IMPLANT + upOrDown + columnIndex + Images.SECONDARY + Images.EXTENSION);
+                    } else {
+                        resource1 = Images.class.getResource(Images.FOLDER + upOrDown + columnIndex + Images.PRIMARY + Images.EXTENSION);
+                        resource2 = Images.class.getResource(Images.FOLDER + upOrDown + columnIndex + Images.SECONDARY + Images.EXTENSION);
+                    }
+                    pic1.setImage(new Image(resource1.toExternalForm()));
+                    pic2.setImage(new Image(resource2.toExternalForm()));
                 };
-                if (rowIndex == 10 && fork_1_Eligable.contains(columnIndex)) {//only rows that has forks
-                    ChangeListener<Number> fork1Listener = (ov, oldValue, newValue) -> drawForks(stackPane, newValue, 1);
+                if (fork_1_Eligable.contains(columnIndex)) {//only rows that has forks
+                    ChangeListener<Number> fork1Listener = (ov, oldValue, newValue) -> drawForks(containerUpPic, newValue, 1);
                     item.fork1Property().addListener(fork1Listener);
                     fork1Listener.changed(item.fork1Property(), null, item.getFork1());
                 }
                 //as the inferior part doesn't have forks in item 5,13 
                 List<Integer> whichOne = gridPane.getId().equals(superior.getId()) ? fork_2_3_Eligable : fork_1_Eligable;
-                if (rowIndex == 12 && whichOne.contains(columnIndex)) {//only rows that has forks
+                if (whichOne.contains(columnIndex)) {//only rows that has forks
                     int isFork2AloneOrWithFork3 = gridPane.getId().equals(superior.getId()) ? 2 : 1;
-                    ChangeListener<Number> fork2Listener = (ov, oldValue, newValue) -> drawForks(stackPane, newValue, isFork2AloneOrWithFork3);
+                    ChangeListener<Number> fork2Listener = (ov, oldValue, newValue) -> drawForks(containerDownPic, newValue, isFork2AloneOrWithFork3);
                     item.fork2Property().addListener(fork2Listener);
                     fork2Listener.changed(item.fork2Property(), null, item.getFork2());
                     if (gridPane.getId().equals(superior.getId())) {//as the inferior part only got fork1,fork2
-                        ChangeListener<Number> fork3Listener = (ov, oldValue, newValue) -> drawForks(stackPane, newValue, 3);
+                        ChangeListener<Number> fork3Listener = (ov, oldValue, newValue) -> drawForks(containerDownPic, newValue, 3);
                         fork3Listener.changed(item.fork3Property(), null, item.getFork3());
                         item.fork3Property().addListener(fork3Listener);
                     }
@@ -402,12 +449,13 @@ public class DentalChartController implements Initializable {
 
                 item.availableProperty().addListener(avilableListener);
                 item.implantProperty().addListener(implantListener);
-                // a hack to fire the mcListener to initialize the pic
+                // a hack to fire the mcListener to initialize the pic1
                 avilableListener.changed(item.availableProperty(), null, item.getAvailable());
                 //firing this listener will remove the affect of the previous one
                 //implantListener.changed(item.implantProperty(), null, item.getImplant());
                 break;
-            case 13://probing-depth-set2
+
+            case 11://probing-depth-set2
                 ChangeListener<String> probingDepthListener2 = (ObservableValue<? extends String> ov, String oldValue, String newValue) -> {
                     TextInputControl textField = (TextInputControl) ((StringProperty) ov).getBean();
                     if (newValue.length() == 0) {
@@ -423,9 +471,7 @@ public class DentalChartController implements Initializable {
                     }
 
                     MouthItem.calculateTotalProbingDepth(item);
-                    Pair<Integer, Integer> pair = calculateDentalChartMeanProbingDepth(chart);
-                    meanProbingDepth.setText(String.format("%.2f", (pair.getKey() / (totalItems * 3))) + "mm");
-                    meanAttachmentLevel.setText(String.format("%.2f", ((pair.getKey() + pair.getValue()) / (totalItems * 3))) + "mm");
+                    update_MPD_MAL(false);
                 };
                 HBox depthBox2 = (HBox) node;
                 TextField depth4 = (TextField) depthBox2.getChildren().get(0);
@@ -438,7 +484,7 @@ public class DentalChartController implements Initializable {
                 depth5.textProperty().addListener(probingDepthListener2);
                 depth6.textProperty().addListener(probingDepthListener2);
                 break;
-            case 14://gingival-margin-set-2
+            case 12://gingival-margin-set-2
                 ChangeListener<String> marginListener2 = (ObservableValue<? extends String> ov, String oldValue, String newValue) -> {
                     TextInputControl textField = (TextInputControl) ((StringProperty) ov).getBean();
                     System.out.println("" + newValue);
@@ -454,9 +500,7 @@ public class DentalChartController implements Initializable {
                         return;
                     }
                     MouthItem.calculateTotalGingivalMargin(item);
-                    Pair<Integer, Integer> pair = calculateDentalChartMeanProbingDepth(chart);
-                    meanProbingDepth.setText(String.format("%.2f", (pair.getKey() / (totalItems * 3))) + "mm");
-                    meanAttachmentLevel.setText(String.format("%.2f", ((pair.getKey() + pair.getValue()) / (totalItems * 3))) + "mm");
+                    update_MPD_MAL(false);
                 };
                 HBox marginBox2 = (HBox) node;
                 TextField margin4 = (TextField) marginBox2.getChildren().get(0);
@@ -470,7 +514,7 @@ public class DentalChartController implements Initializable {
                 margin6.textProperty().addListener(marginListener2);
 
                 break;
-            case 15://plaque 4,5,6
+            case 13://plaque 4,5,6
                 HBox boxPlaque2 = (HBox) node;
                 JFXButton plaque4 = (JFXButton) boxPlaque2.getChildren().get(0);
                 JFXButton plaque5 = (JFXButton) boxPlaque2.getChildren().get(1);
@@ -490,7 +534,7 @@ public class DentalChartController implements Initializable {
                         stylePlaqueSVG(plaque6, item.getPlaque6());
                     }
                     MouthItem.calculateTotalPlaque(item);
-                    plaquePercentage.setText(String.format("%.2f", (calculateDentalChartPlaque(chart) / totalPlaque * 100)) + "%");
+                    updatePlaque(false);
                 };
                 plaque4.setOnMouseClicked(mouseHandlerPlaque2);
                 plaque5.setOnMouseClicked(mouseHandlerPlaque2);
@@ -501,7 +545,7 @@ public class DentalChartController implements Initializable {
                 item.plaque6Property().addListener((ov, oldValue, newValue) -> stylePlaqueSVG(plaque6, (int) newValue));
 
                 break;
-            case 16://bleeding/oozing
+            case 14://bleeding/oozing
                 HBox boxBleeding2 = (HBox) node;
                 JFXButton bleeding4 = (JFXButton) boxBleeding2.getChildren().get(0);
 
@@ -521,6 +565,8 @@ public class DentalChartController implements Initializable {
                         item.setBleeding6(item.getBleeding6() + 1);
                         styleBleedingSVG(bleeding6, item.getBleeding6());
                     }
+                    MouthItem.calculateTotalBleedingOnProbing(item);
+                    updateBleedingOnProbing(false);
                 };
                 bleeding4.setOnMouseClicked(mouseHandlerBleeding2);
                 bleeding5.setOnMouseClicked(mouseHandlerBleeding2);
@@ -530,7 +576,7 @@ public class DentalChartController implements Initializable {
                 item.bleeding6Property().addListener((ov, oldValue, newValue) -> styleBleedingSVG(bleeding6, (int) newValue));
 
                 break;
-            case 17://fork
+            case 15://fork
                 if (node != null) {
                     HBox box = (HBox) node;
                     JFXButton fork2 = (JFXButton) box.getChildren().get(0);
@@ -568,16 +614,15 @@ public class DentalChartController implements Initializable {
 
                 }
                 break;
-            case 18://note
+            case 16://note
 
                 break;
-
         }
     }
 
     void setDisableOtherNodes(int ColumnIndex, GridPane gridPane, boolean disable) {
-        List<Integer> rowsToDisable = Arrays.asList(2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18);
-        gridPane.getChildren().parallelStream().forEach(child -> {
+        List<Integer> rowsToDisable = Arrays.asList(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);// 16 : note to be added
+        gridPane.getChildren().stream().forEach(child -> {
             if (!child.getClass().equals(Label.class) && GridPane.getColumnIndex(child) == ColumnIndex && rowsToDisable.contains(GridPane.getRowIndex(child))) {
                 //cause some properties are bounded to some node disableProperty like forks
                 if (!child.disableProperty().isBound())
@@ -606,9 +651,35 @@ public class DentalChartController implements Initializable {
         }
     }
 
+    public void print(ActionEvent event) {
+
+    }
+
     public void infoForCategory(MouseEvent event) {
         System.out.println("clicked");
 
+    }
+
+    private void updatePlaque(boolean skipUpdatingPlaque) {
+        if (!skipUpdatingPlaque)
+            plaquePercentage.setText(String.format("%.2f", calculateDentalChartPlaque(chart) / (currentItems * 6) * 100) + "%");
+    }
+
+    private void update_MPD_MAL(boolean skipUpdatingGlobalInfo) {
+        //int availableItems=totalItems-disabledItems;
+        if (!skipUpdatingGlobalInfo) {
+            System.out.println("current" + currentItems);
+            Pair<Integer, Integer> pair = calculateDentalChartMeanProbingDepth(chart);
+            meanProbingDepth.setText(String.format("%.2f", (pair.getKey() / (currentItems * 6))) + " mm");
+            meanAttachmentLevel.setText(String.format("%.2f", ((pair.getKey() + pair.getValue()) / (currentItems * 6))) + " mm");
+
+            //Math.round((totalSangrado/(currentItems*6)*100);
+        }
+    }
+
+    private void updateBleedingOnProbing(boolean skipUpdatingBleedingOnProbing) {
+        if (!skipUpdatingBleedingOnProbing)
+            bleedingOnProbing.setText(String.format("%.2f", calculateDentalBleedingOnProbing(chart) / (currentItems * 6) * 100) + "%");
     }
 
 }

@@ -20,6 +20,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextInputControl;
@@ -38,7 +40,7 @@ import static shadow.dental_chart.entities.MouthItem.calculateTotalProbingDepth;
 
 public abstract class DentalChartUtils {
 
-    public static void drawRedPath(Pane pane, List<Circle> circles, MouthItem item, int direction) {
+    public static void drawPath(Pane pane, List<Circle> circles, MouthItem item, int direction) {
         //todo originY basically is always 3 : so we can remove it entirely
         Path redPath = new Path();
         Circle redCircle1 = circles.get(0);
@@ -88,7 +90,7 @@ public abstract class DentalChartUtils {
         redCircle3.setStroke(Color.CRIMSON);
 
         redPath.setStroke(Color.RED);
-        redPath.setFill(Color.rgb(81, 33, 255, 0.3));
+        redPath.setFill(Color.rgb(255, 33, 81, 0.4));
 
         // BLUE
         Path bluePath = new Path();
@@ -117,7 +119,7 @@ public abstract class DentalChartUtils {
         blueCircle2.setStroke(Color.BLUE);
         blueCircle3.setStroke(Color.BLUE);
         bluePath.setStroke(Color.BLUE);
-        bluePath.setFill(Color.rgb(255, 33, 81, 0.3));//just flip the value of blue with red
+        bluePath.setFill(Color.rgb(81, 33, 255, 0.4));//just flip the value of blue with red
 
         blueCircle1.setLayoutX(redCircle1.getLayoutX());
         blueCircle1.setLayoutY(blueHeight1);
@@ -232,7 +234,7 @@ public abstract class DentalChartUtils {
 
     }
 
-    public static void drawForks(StackPane parent, Number value, Integer fork) {
+    public static void drawForks(Pane parent, Number value, Integer fork) {
         // if fork2 is alone it will be centered as well be rendered as fork-icon1
         WeatherIconView icon = (WeatherIconView) parent.lookup(".fork-icon" + fork);
         if (icon == null) {
@@ -318,22 +320,34 @@ public abstract class DentalChartUtils {
         return result.get();
     }
 
-    public static Pair<Integer,Integer> calculateDentalChartMeanProbingDepth(DentalChart dentalChart) {
-       
-        
+    public static Pair<Integer, Integer> calculateDentalChartMeanProbingDepth(DentalChart dentalChart) {
+
         AtomicInteger result1 = new AtomicInteger(0);
-        AtomicInteger result2=new AtomicInteger(0);
+        AtomicInteger result2 = new AtomicInteger(0);
         dentalChart.getSuperiorMap().forEach((k, v) -> {
-            result1.getAndAdd(v.getTotalProbingDepth());
-            result2.getAndAdd(v.getTotalGingivalMargin());
+            if (v.getAvailable()) {
+                result1.getAndAdd(v.getTotalProbingDepth());
+                result2.getAndAdd(v.getTotalGingivalMargin());
+            }
         });
         dentalChart.getInferiorMap().forEach((k, v) -> {
-            result1.getAndAdd(v.getTotalProbingDepth());
-            result2.getAndAdd(v.getTotalGingivalMargin());
+            if (v.getAvailable()) {
+                result1.getAndAdd(v.getTotalProbingDepth());
+                result2.getAndAdd(v.getTotalGingivalMargin());
+            }
         });
-        System.out.println("res2 : "+result1);
-        System.out.println("res2 :"+result2);
-        return  new Pair<>(result1.get(),result2.get());
+        return new Pair<>(result1.get(), result2.get());
+    }
+    
+        public static int calculateDentalBleedingOnProbing(DentalChart dentalChart) {
+        AtomicInteger result = new AtomicInteger(0);
+        dentalChart.getSuperiorMap().forEach((k, v) -> {
+            result.getAndAdd(v.getTotalBleedingOnProbing());
+        });
+        dentalChart.getInferiorMap().forEach((k, v) -> {
+            result.getAndAdd(v.getTotalBleedingOnProbing());
+        });
+        return result.get();
     }
 
 }

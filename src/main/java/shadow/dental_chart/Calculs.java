@@ -11,15 +11,16 @@ package shadow.dental_chart;
 public class Calculs {
 
     public static void main(String[] args) {
-        float mean;
-        int sum, i;
-        int a[] = {0,3, 2, 1};
-        sum = 0;
-
-        for (i = 0; i < a.length; i++) {
-            sum += a[i];
-        }
-        System.out.println("Mean ::" + sum / (float) 192);
+       Integer x=0;
+       Integer y=1;
+       Integer z=2;
+       
+        System.out.println(x.compareTo(1));      
+        System.out.println(y.compareTo(1));
+        System.out.println(z.compareTo(1));
+        
+        System.out.println(Boolean.compare(x==0||x==2, false));
+        
     }
 
 }

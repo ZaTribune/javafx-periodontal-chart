@@ -29,8 +29,8 @@ Circle.red-circle1:hover,Circle.red-circle2:hover,Circle.red-circle3:hover,Circl
 }
 .circle-nerve-unclicked{
     -fx-stroke-width:1;
-    -fx-scale-x:1.25;
-    -fx-scale-y:1.25;
+    -fx-scale-x:1;
+    -fx-scale-y:1;
 }
 
 Line.line-nerve{
