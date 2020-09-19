@@ -20,11 +20,6 @@
 *.zip
 *.tar.gz
 *.rar
-#Edit 2020-07-31 
-/derby.log
-/desktop-dentist.ico
-/desktop-dentist.png
-/drfolder-74a1616c-6456-40ac-bc75-85397c3a7a6a.ico
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
