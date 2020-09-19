@@ -15,18 +15,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.TextInputControl;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.LineTo;
@@ -35,8 +28,6 @@ import javafx.scene.shape.Path;
 import javafx.util.Pair;
 import shadow.dental_chart.entities.DentalChart;
 import shadow.dental_chart.entities.MouthItem;
-import static shadow.dental_chart.entities.MouthItem.calculateTotalPlaque;
-import static shadow.dental_chart.entities.MouthItem.calculateTotalProbingDepth;
 
 public abstract class DentalChartUtils {
 
@@ -164,24 +155,20 @@ public abstract class DentalChartUtils {
         Map<Integer, MouthItem> items = new HashMap<>();
         columnsList.forEach(element -> {
             MouthItem item = new MouthItem();
-            if (element == 1 || element == 5 || element == 10) {
-                item.setAvailable(Boolean.FALSE);
-            }
-            if (element == 2 || element == 6 || element == 11) {
-                item.setImplant(Boolean.TRUE);
-            }
-            item.setMobility(-3);
-            item.setFork1(1);
+            item.setAvailable(Boolean.TRUE);
+            item.setImplant(Boolean.FALSE);
+            item.setMobility(0);
+            item.setFork1(0);
             item.setBleeding1(0);
-            item.setBleeding2(1);
-            item.setBleeding3(2);
+            item.setBleeding2(0);
+            item.setBleeding3(0);
             item.setPlaque1(0);
             item.setPlaque2(0);
             item.setPlaque3(0);
             item.setPlaque4(0);
             item.setPlaque5(0);
             item.setPlaque6(0);
-            item.setGum(58.0);
+            item.setGum(50.0);
             item.setMargin1("0");
             item.setMargin2("0");
             item.setMargin3("0");
@@ -195,10 +182,10 @@ public abstract class DentalChartUtils {
             item.setDepth5("0");
             item.setDepth6("0");
             item.setBleeding4(0);
-            item.setBleeding5(1);
-            item.setBleeding6(2);
-            item.setFork2(2);
-            item.setFork3(3);
+            item.setBleeding5(0);
+            item.setBleeding6(0);
+            item.setFork2(0);
+            item.setFork3(0);
             item.setNote("no");
             item.setSelectedCircle(1);
             items.put(element, item);
@@ -338,8 +325,8 @@ public abstract class DentalChartUtils {
         });
         return new Pair<>(result1.get(), result2.get());
     }
-    
-        public static int calculateDentalBleedingOnProbing(DentalChart dentalChart) {
+
+    public static int calculateDentalBleedingOnProbing(DentalChart dentalChart) {
         AtomicInteger result = new AtomicInteger(0);
         dentalChart.getSuperiorMap().forEach((k, v) -> {
             result.getAndAdd(v.getTotalBleedingOnProbing());

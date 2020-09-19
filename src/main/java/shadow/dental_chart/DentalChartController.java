@@ -404,8 +404,6 @@ public class DentalChartController implements Initializable {
                         resource1 = Images.class.getResource(Images.FOLDER + upOrDown + columnIndex + Images.PRIMARY + Images.EXTENSION);
                         resource2 = Images.class.getResource(Images.FOLDER + upOrDown + columnIndex + Images.SECONDARY + Images.EXTENSION);
                     }
-
-                    System.out.println("" + currentItems + "\t" + columnIndex);
                     updatePlaque(skipUpdatingPlaque);
                     update_MPD_MAL(skipUpdatingGlobalInfo);
                     updateBleedingOnProbing(skipUpdatingBleedingOnProbing);
@@ -487,14 +485,12 @@ public class DentalChartController implements Initializable {
             case 12://gingival-margin-set-2
                 ChangeListener<String> marginListener2 = (ObservableValue<? extends String> ov, String oldValue, String newValue) -> {
                     TextInputControl textField = (TextInputControl) ((StringProperty) ov).getBean();
-                    System.out.println("" + newValue);
                     if (newValue.length() == 0) {
                         textField.setText("0");//to avoid the number format exception
                         return;
                     }
-                    if (newValue.equals("-")) {
+                    if (newValue.equals("-"))
                         return;
-                    }
                     if (!newValue.matches("^[-+]?\\d{0,3}") || Integer.parseInt(textField.getText()) > 10 || Integer.parseInt(textField.getText()) < - 10) {
                         textField.setText(oldValue);///the whole value not just a single number input 
                         return;
@@ -668,7 +664,6 @@ public class DentalChartController implements Initializable {
     private void update_MPD_MAL(boolean skipUpdatingGlobalInfo) {
         //int availableItems=totalItems-disabledItems;
         if (!skipUpdatingGlobalInfo) {
-            System.out.println("current" + currentItems);
             Pair<Integer, Integer> pair = calculateDentalChartMeanProbingDepth(chart);
             meanProbingDepth.setText(String.format("%.2f", (pair.getKey() / (currentItems * 6))) + " mm");
             meanAttachmentLevel.setText(String.format("%.2f", ((pair.getKey() + pair.getValue()) / (currentItems * 6))) + " mm");
