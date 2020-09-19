@@ -15,4 +15,4 @@ A dental chart application built using JavaFX.
    **Muhammad Ali Arafah** - find me on : [Twitter](https://twitter.com/ZaTribune), [LinkedIn](https://www.linkedin.com/in/zatribune).  
    
 ## Acknowledgments   
-   Thanks to [alejo8591](https://github.com/alejo8591/periodontal-chart) , As I used the dental photos that he provided, as well as the organization and functionaities.
+   Thanks to [alejo8591](https://github.com/alejo8591/periodontal-chart) , As I used the dental photos that he provided, as well as the chart mechanisms and functionaities.
