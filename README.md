@@ -11,8 +11,8 @@ A dental chart application built using JavaFX.
 &nbsp;&nbsp;&nbsp;&nbsp;**Netbeans** - Java IDE.  
 &nbsp;&nbsp;&nbsp;&nbsp;**Maven** - Dependency Management.  
 
-## Authors  
-   **Muhammad Ali Arafah** - find me on : [Twitter](https://twitter.com/ZaTribune), [LinkedIn](https://www.linkedin.com/in/zatribune).  
-   
 ## Acknowledgments   
    Thanks to [alejo8591](https://github.com/alejo8591/periodontal-chart) , As I used the dental photos that he provided, as well as the chart mechanisms and functionaities.
+   
+## Authors
+[![Linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white&label=Muhammad%20Ali)](https://linkedin.com/in/zatribune)
