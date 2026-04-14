@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<!-- Row 5: Bleeding on Probing row label and controls -->
+<HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="115.0"
+      style="-fx-background-color: -fx-second;" xmlns="http://javafx.com/javafx/11.0.1">
+
+    <!-- Label for row -->
+    <Label maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="115.0"
+           style="-fx-background-color: -fx-second;" text="Bleeding on Probing" textFill="WHITE">
+        <padding>
+            <Insets left="10.0"/>
+        </padding>
+        <HBox.hgrow>ALWAYS</HBox.hgrow>
+    </Label>
+
+    <!-- Bleeding buttons (3 per tooth) will be added by controller dynamically -->
+</HBox>
+

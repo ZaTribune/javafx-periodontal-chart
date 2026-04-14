@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<!-- Row 8: Gingival Margin row label and controls -->
+<HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="115.0"
+      style="-fx-background-color: -fx-second;" xmlns="http://javafx.com/javafx/11.0.1">
+    <Label maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="115.0"
+           style="-fx-background-color: -fx-second;" text="Gingival Margin" textFill="WHITE">
+        <padding><Insets left="10.0"/></padding>
+        <HBox.hgrow>ALWAYS</HBox.hgrow>
+    </Label>
+</HBox>
+

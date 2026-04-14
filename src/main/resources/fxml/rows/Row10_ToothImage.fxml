@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.Label?>
+
+<!-- Row 10: Tooth Image row with circles for probing depth markers -->
+<VBox fx:id="toothImage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <!-- Upper image -->
+    <StackPane prefHeight="156.0" styleClass="container-up-pic">
+        <ImageView pickOnBounds="true" preserveRatio="true" styleClass="item_pic1" StackPane.alignment="TOP_CENTER">
+            <effect><DropShadow/></effect>
+        </ImageView>
+        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container1">
+            <Circle fill="DODGERBLUE" layoutX="30.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1"/>
+            <Circle fill="DODGERBLUE" layoutX="47.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2"/>
+            <Circle fill="DODGERBLUE" layoutX="65.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3"/>
+            <StackPane.margin><Insets top="50.0"/></StackPane.margin>
+        </Pane>
+    </StackPane>
+
+    <!-- Tooth number label -->
+    <Label alignment="CENTER" contentDisplay="CENTER" minHeight="30.0" minWidth="69" text="1.1">
+        <font><Font name="System Bold" size="12.0"/></font>
+    </Label>
+
+    <!-- Lower image -->
+    <StackPane prefHeight="156.0" styleClass="container-down-pic">
+        <ImageView pickOnBounds="true" preserveRatio="true" styleClass="item_pic2" StackPane.alignment="BOTTOM_CENTER">
+            <effect><DropShadow/></effect>
+        </ImageView>
+        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" styleClass="circles-container2">
+            <Circle fill="DODGERBLUE" layoutX="27.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle1"/>
+            <Circle fill="DODGERBLUE" layoutX="45.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle2"/>
+            <Circle fill="DODGERBLUE" layoutX="59.0" radius="2.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.0" styleClass="red-circle3"/>
+            <StackPane.margin><Insets bottom="21.0"/></StackPane.margin>
+        </Pane>
+    </StackPane>
+</VBox>
+
